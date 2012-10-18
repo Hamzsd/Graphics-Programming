@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swirls_01", "swirls_01\swirls_01.vcxproj", "{1E73719E-A32E-48EF-8DCF-B4FBB1864F7A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swirls_02", "swirls_02\swirls_02.vcxproj", "{420F70E3-0DE4-4890-A9E1-F5887E1FAC58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E73719E-A32E-48EF-8DCF-B4FBB1864F7A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1E73719E-A32E-48EF-8DCF-B4FBB1864F7A}.Debug|Win32.Build.0 = Debug|Win32
+		{1E73719E-A32E-48EF-8DCF-B4FBB1864F7A}.Release|Win32.ActiveCfg = Release|Win32
+		{1E73719E-A32E-48EF-8DCF-B4FBB1864F7A}.Release|Win32.Build.0 = Release|Win32
+		{420F70E3-0DE4-4890-A9E1-F5887E1FAC58}.Debug|Win32.ActiveCfg = Debug|Win32
+		{420F70E3-0DE4-4890-A9E1-F5887E1FAC58}.Debug|Win32.Build.0 = Debug|Win32
+		{420F70E3-0DE4-4890-A9E1-F5887E1FAC58}.Release|Win32.ActiveCfg = Release|Win32
+		{420F70E3-0DE4-4890-A9E1-F5887E1FAC58}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
