@@ -88,7 +88,7 @@ void initialise()
 	for (int i = 0; i < 4; ++i)
 		dynamic.addPoint(point[i]);
 
-
+	dynamic.create();
 
 	plane.geometry = createPlane(20, 20);
 	glm::vec4 colour(0.1f, 0.1f, 0.1f, 1.0f);
