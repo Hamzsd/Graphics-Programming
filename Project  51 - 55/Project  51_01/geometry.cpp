@@ -530,21 +530,20 @@ void triangle(geometry* geom, const glm::vec3& a, glm::vec3& b, glm::vec3& c)
 	geom->vertices.push_back(b);
 	geom->vertices.push_back(c);
 
-	//geom->normals.push_back(a); //makes a smooth sphere
-	//geom->normals.push_back(b);
-	//geom->normals.push_back(c);
+	geom->normals.push_back(a); //makes a smooth sphere
+	geom->normals.push_back(b);
+	geom->normals.push_back(c);
 
-	for (int i = 0; i < 3; ++i) //makes a bumpy sphere
-		geom->normals.push_back(normal);
+	//for (int i = 0; i < 3; ++i) //makes a bumpy sphere
+	//	geom->normals.push_back(normal);
 }
 
 void divideTriangle(geometry* geom, const glm::vec3& a, glm::vec3& b, glm::vec3& c, int divisions)
 {
 	if(divisions > 0)
 	{
-		glm::vec3 ab, ac, bc, abx, acx, bcx;
-		glm::vec3 tempA, tempB, tempC;
-		glm::vec3 radius = glm::vec3(1.0f, 1.0f, 1.0f);
+		glm::vec3 ab, ac, bc;
+
 
 		ab = glm::normalize(glm::vec3(a + b) / glm::vec3(2.0f, 2.0f, 2.0f));
 		ac = glm::normalize(glm::vec3(a + c) / glm::vec3(2.0f, 2.0f, 2.0f));
