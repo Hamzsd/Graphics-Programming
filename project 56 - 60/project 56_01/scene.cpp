@@ -2,7 +2,6 @@
 
 #include <boost\property_tree\json_parser.hpp>
 
-
 glm::vec3 readVec3(const boost::property_tree::ptree& pt)
 {
 	glm::vec3 v;

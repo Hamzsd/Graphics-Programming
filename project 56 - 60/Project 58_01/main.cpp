@@ -24,7 +24,7 @@ bool running = true;
 
 effect eff;
 scene_data* scene;
-first_person_camera* cam;
+chase_camera* cam;
 
 
 glm::vec3 lightAim(0.0f, 0.0f, 0.0f);
@@ -45,9 +45,26 @@ void initialise()
 	cam->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));*/
 
 	//FPS camera
-	cam = new first_person_camera();
+	/*cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, 800.0f/600.0f, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 2.0f, 0.0f));
+	cam->setPositon(glm::vec3(0.0f, 2.0f, 0.0f));*/
+
+	//arcBall
+	/*cam = new arc_ball_camera();
+	cam->setProjection(45.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam->setTarget(glm::vec3(0.0f, 2.0f, 0.0f));
+	cam->setDistance(5.0f);
+	cam->setMinRotationY(-glm::pi<float>() / 2.0f);
+	cam->setMaxRotationY(glm::pi<float>() / 2.0f);
+	cam->setRotationX(0.0f);
+	cam->setRotationY(0.0f);*/
+
+	//chaseCamera
+	cam = new chase_camera();
+	cam->setProjection(45.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam->setFollowPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	cam->setPositionOffset(glm::vec3(0.0f, 0.0f, 5.0f));
+	cam->setSpringiness(0.5f);
 
 	if (!eff.addShader("multi_light.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -77,6 +94,17 @@ void update(double deltaTime)
 	//if (glfwGetKey(GLFW_KEY_RIGHT))
 	//	lightAim.x += 0.1f;
 	if (glfwGetKey('W'))
+		cam->rotate(glm::vec3(glm::pi<float>() / 100.0f, 0.0f, 0.0f));
+	if (glfwGetKey('S'))
+		cam->rotate(glm::vec3(-glm::pi<float>() / 100.0f, 0.0f, 0.0f));
+	if (glfwGetKey('A'))
+		cam->rotate(glm::vec3(0.0f, -glm::pi<float>() / 100.0f, 0.0f));
+	if (glfwGetKey('D'))
+		cam->rotate(glm::vec3(0.0f, glm::pi<float>() / 100.0f, 0.0f));
+
+
+	//fps cam controls
+	/*if (glfwGetKey('W'))
 		cam->move(glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
 	if (glfwGetKey('S'))
 		cam->move(-glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
@@ -87,28 +115,28 @@ void update(double deltaTime)
 	if (glfwGetKey(GLFW_KEY_LEFT))
 		cam->rotate(glm::pi<float>() * deltaTime, 0.0f);
 	if (glfwGetKey(GLFW_KEY_RIGHT))
-		cam->rotate(-glm::pi<float>() * deltaTime, 0.0f);
+		cam->rotate(-glm::pi<float>() * deltaTime, 0.0f);*/
 }
 
-void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object& object)
+void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
 {
-	glm::mat4 mvp = projection * view * object.transform.getTransformationMatrix();
+	glm::mat4 mvp = projection * view * object->transform.getTransformationMatrix();
 	glUniformMatrix4fv(eff->getUniformIndex("modelViewProjection"), 1, GL_FALSE, glm::value_ptr(mvp));
-	glm::mat4 mit = glm::inverse(glm::transpose(object.transform.getTransformationMatrix()));
+	glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));
 	glUniformMatrix4fv(eff->getUniformIndex("modelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(mit));
-	glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object.transform.getTransformationMatrix()));
+	glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object->transform.getTransformationMatrix()));
 
-	object.material->bind(eff);
+	object->material->bind(eff);
 
-	glBindVertexArray(object.geometry->vao);
-	if (object.geometry->indexBuffer)
+	glBindVertexArray(object->geometry->vao);
+	if (object->geometry->indexBuffer)
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object.geometry->indexBuffer);
-		glDrawElements(GL_TRIANGLES, object.geometry->indices.size(), GL_UNSIGNED_INT, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->geometry->indexBuffer);
+		glDrawElements(GL_TRIANGLES, object->geometry->indices.size(), GL_UNSIGNED_INT, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	else
-		glDrawArrays(GL_TRIANGLES, 0, object.geometry->vertices.size());
+		glDrawArrays(GL_TRIANGLES, 0, object->geometry->vertices.size());
 	glBindVertexArray(0);
 }
 
@@ -133,7 +161,7 @@ void render()
 
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
-		render(&eff, cam->getView(), cam->getProjecion(), *iter->second);
+		render(&eff, cam->getView(), cam->getProjecion(), iter->second);
 
 	glUseProgram(0);
 	glfwSwapBuffers();

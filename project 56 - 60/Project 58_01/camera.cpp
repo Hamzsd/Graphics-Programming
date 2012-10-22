@@ -40,3 +40,59 @@ void first_person_camera::move(const glm::vec3& translation)
 {
 	_translation += translation;
 }
+
+void arc_ball_camera::update(float deltaTime)
+{
+	glm::mat4 mat = glm::eulerAngleYX(_rotY, _rotX);
+	glm::vec4 translation(0.0f, 0.0f, _distance, 1.0f);
+	translation = mat * translation; 
+	_position = _target + glm::vec3(translation.x, translation.y, translation.z);
+	glm::vec4 tempUp(0.0f, 1.0f, 0.0f, 1.0f);
+	tempUp = mat * tempUp;
+	_up = glm::vec3(tempUp.x, tempUp.y, tempUp.z);
+	_view = glm::lookAt(_position, _target, _up);
+}
+
+void arc_ball_camera::move(float movement)
+{
+	_distance = glm::clamp<float>(_distance + movement, _minDistance, _maxDistance);
+}
+
+void arc_ball_camera::rotate(float deltaX, float deltaY)
+{
+	_rotX += deltaX;
+	_rotY = glm::clamp<float>(_rotY + deltaY, _minRotY, _maxRotY);
+}
+
+void arc_ball_camera::translate(const glm::vec3& translation)
+{
+	_position += translation;
+}
+
+void chase_camera::update(float deltaTime)
+{
+	glm::vec3 combinedRotation = _followRotation + _relativeRotation;
+	glm::mat4 mat = glm::eulerAngleYXZ(combinedRotation.y, combinedRotation.x, combinedRotation.z);
+
+	glm::vec4 vec = mat * glm::vec4(_positionOffset, 1.0f);
+	glm::vec3 desiredPosition = _followPosition + glm::vec3(vec);
+	_position = glm::mix(_position, desiredPosition, _springiness);
+
+	_targetOffset = glm::vec3(mat * glm::vec4(_targetOffset, 1.0f));
+	_target = _followPosition + _targetOffset; 
+
+	_up = glm::vec3(mat * glm::vec4(0.f, 1.0f, 0.0f, 1.0f));
+
+	_view = glm::lookAt(_position, _target, _up);
+}
+
+void chase_camera::move(const glm::vec3& newFollowPosition, const glm::vec3& newFollowRotation)
+{
+	_followPosition = newFollowPosition;
+	_followRotation = newFollowRotation;
+}
+
+void chase_camera::rotate(const glm::vec3& deltaRotation)
+{
+	_relativeRotation += deltaRotation;
+}

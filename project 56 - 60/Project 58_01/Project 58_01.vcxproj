@@ -32,15 +32,17 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="OpenGL.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="OpenGL.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\10004794\Documents\GitHub\Graphics-Programming\glm-0.9.3.4;C:\Users\10004794\Documents\GitHub\Graphics-Programming\glfw-2.7.6.bin.WIN32\include;C:\Users\10004794\Documents\GitHub\Graphics-Programming\glew-1.9.0\include\GL;C:\Users\10004794\Documents\GitHub\Graphics-Programming\boost_1_51;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\10004794\Documents\GitHub\Graphics-Programming\glfw-2.7.6.bin.WIN32\lib-msvc100;C:\Users\10004794\Documents\GitHub\Graphics-Programming\glew-1.9.0\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\craig\Documents\GitHub\Graphics-Programming\glm-0.9.3.4;C:\Users\craig\Documents\GitHub\Graphics-Programming\glfw-2.7.6.bin.WIN32\include;C:\Users\craig\Documents\GitHub\Graphics-Programming\glew-1.9.0\include\GL;C:\Users\craig\Documents\GitHub\Graphics-Programming\boost_1_51\boost;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\craig\Documents\GitHub\Graphics-Programming\glfw-2.7.6.bin.WIN32\lib-msvc100;C:\Users\craig\Documents\GitHub\Graphics-Programming\glew-1.9.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
