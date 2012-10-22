@@ -24,7 +24,7 @@ bool running = true;
 
 effect eff;
 scene_data* scene;
-camera* cam;
+first_person_camera* cam;
 
 
 glm::vec3 lightAim(0.0f, 0.0f, 0.0f);
@@ -38,10 +38,16 @@ void initialise()
 	glEnable(GL_VERTEX_ARRAY);
 	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
-	cam = new target_camera();
+	//Target Camera
+	/*cam = new target_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, 800.0f/600.0f, 0.1f, 10000.0f);
 	cam->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
-	cam->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+	cam->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));*/
+
+	//FPS camera
+	cam = new first_person_camera();
+	cam->setProjection(glm::pi<float>() / 4.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam->setPositon(glm::vec3(0.0f, 2.0f, 0.0f));
 
 	if (!eff.addShader("multi_light.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -55,6 +61,7 @@ void initialise()
 
 void update(double deltaTime)
 {
+	float speed = 5.0f;
 	cam->update(deltaTime);
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	if (glfwGetKey('O'))
@@ -65,10 +72,22 @@ void update(double deltaTime)
 		lightAim.z -= 0.1f;
 	if (glfwGetKey(GLFW_KEY_DOWN))
 		lightAim.z += 0.1f;
+	//if (glfwGetKey(GLFW_KEY_LEFT))
+	//	lightAim.x -= 0.1f;
+	//if (glfwGetKey(GLFW_KEY_RIGHT))
+	//	lightAim.x += 0.1f;
+	if (glfwGetKey('W'))
+		cam->move(glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
+	if (glfwGetKey('S'))
+		cam->move(-glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
+	if (glfwGetKey('A'))
+		cam->move(glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
+	if (glfwGetKey('D'))
+		cam->move(-glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
 	if (glfwGetKey(GLFW_KEY_LEFT))
-		lightAim.x -= 0.1f;
+		cam->rotate(glm::pi<float>() * deltaTime, 0.0f);
 	if (glfwGetKey(GLFW_KEY_RIGHT))
-		lightAim.x += 0.1f;
+		cam->rotate(-glm::pi<float>() * deltaTime, 0.0f);
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object& object)
