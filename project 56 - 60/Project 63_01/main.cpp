@@ -66,7 +66,7 @@ void initialise()
 	cam1 = new chase_camera();
 	cam1->setProjection(45.0f, 800.0f/600.0f, 0.1f, 10000.0f);
 	cam1->setFollowPosition(glm::vec3(0.0f, 2.0f, 0.0f));
-	cam1->setPositionOffset(glm::vec3(0.0f, 0.0f, 10.0f));
+	cam1->setPositionOffset(glm::vec3(10.0f, 0.0f, 10.0f));
 	cam1->setSpringiness(0.5f);
 
 	currentCam = cam3;
@@ -79,6 +79,7 @@ void initialise()
 		exit(EXIT_FAILURE);
 
 	scene = loadScene("StackOfCubes.json");
+	//scene = loadScene("scene2.json");
 }
 
 //=================Move camera methods=======================================
@@ -147,6 +148,32 @@ void update(double deltaTime)
 		currentCam = cam4;
 	if (currentCam == cam4)
 		moveFPSCam(deltaTime, speed);
+
+	if(glfwGetKey(GLFW_KEY_SPACE))
+	{
+		scene->objects["cube1"]->transform.move(glm::vec3(0.0f, 0.01f, 0.1f));
+		scene->objects["cube2"]->transform.move(glm::vec3(0.1f, 0.01f, 0.1));
+		scene->objects["cube3"]->transform.move(glm::vec3(-0.1f, 0.01f, -0.1f));
+		scene->objects["cube4"]->transform.move(glm::vec3(-0.1f, 0.01f, 0.1f));
+		scene->objects["cube5"]->transform.move(glm::vec3(0.1f, 0.01f, -0.1f));
+		scene->objects["cube6"]->transform.move(glm::vec3(0.1f, 0.01f, 0.1f));
+
+		scene->objects["cube1"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+		scene->objects["cube2"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+		scene->objects["cube3"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+		scene->objects["cube4"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+		scene->objects["cube5"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+		scene->objects["cube6"]->transform.rotate(30, glm::vec3(1.0f, 1.0f, 4.0f));
+	}
+	if(glfwGetKey('V'))
+	{
+		scene->objects["cube1"]->transform.move(-glm::vec3(0.0f, 0.0f, 0.1f));
+		scene->objects["cube2"]->transform.move(-glm::vec3(0.1f, 0.0f, 0.1));
+		scene->objects["cube3"]->transform.move(-glm::vec3(-0.1f, 0.0f, -0.1f));
+		scene->objects["cube4"]->transform.move(-glm::vec3(-0.1f, -0.1f, 0.1f));
+		scene->objects["cube5"]->transform.move(-glm::vec3(0.1f, -0.1f, -0.1f));
+		scene->objects["cube6"]->transform.move(-glm::vec3(0.1f, -0.1f, 0.1f));
+	}
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
