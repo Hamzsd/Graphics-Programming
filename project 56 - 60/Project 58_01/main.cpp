@@ -18,12 +18,14 @@
 #include "effect.h"
 #include "light.h"
 #include "scene.h"
+#include "camera.h"
 
 bool running = true;
 
 effect eff;
-glm::mat4 projection;
 scene_data* scene;
+camera* cam;
+
 
 glm::vec3 lightAim(0.0f, 0.0f, 0.0f);
 float power = 1.0f;
@@ -31,14 +33,15 @@ float power = 1.0f;
 void initialise()
 {
 	srand(time(NULL));
-
-	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
-	projection = glm::perspective(glm::degrees(glm::quarter_pi<float>()),
-								  800.0f/600.0f,
-								  0.1f,
-								  10000.0f);
+		
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_VERTEX_ARRAY);
+	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+
+	cam = new target_camera();
+	cam->setProjection(glm::pi<float>() / 4.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
+	cam->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	if (!eff.addShader("multi_light.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -52,6 +55,7 @@ void initialise()
 
 void update(double deltaTime)
 {
+	cam->update(deltaTime);
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	if (glfwGetKey('O'))
 		power = std::max<float>(power - 0.1f, 0.0f);
@@ -92,9 +96,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 void render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glm::mat4 view = glm::lookAt(glm::vec3(10.0f, 10.0f, 10.f),
-								 glm::vec3(0.0f, 0.0f, 0.0f),
-								 glm::vec3(0.0f, 1.0f, 0.0f));
+	
 	eff.begin();
 
 	// Create light direction from lightAngle
@@ -108,11 +110,11 @@ void render()
 	scene->dynamic.bind(&eff);
 	scene->light.bind(&eff);
 
-	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(glm::vec3(10.0f, 10.0f, 10.0f)));
+	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
 
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
-		render(&eff, view, projection, *iter->second);
+		render(&eff, cam->getView(), cam->getProjecion(), *iter->second);
 
 	glUseProgram(0);
 	glfwSwapBuffers();
