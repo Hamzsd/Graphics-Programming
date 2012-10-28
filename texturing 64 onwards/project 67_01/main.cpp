@@ -91,7 +91,9 @@ void initialise()
 	object.material->create();
 
 	plane.geometry = createPlane(20,20);
+	//plane.geometry = createTorus(6, 500, 500);
 	plane.transform.position = glm::vec3(0.0f, -1.0f, 0.0f);
+	//plane.transform.position = glm::vec3(5.0f, 1.0f, 1.0f);
 
 	plane.material = new material();
 	plane.material->data.ambient = glm::vec4(0.3f, 0.3f, 0.1f, 1.0f);
@@ -198,6 +200,10 @@ void update(double deltaTime)
 		object.material->texture = ilutGLLoadImage((wchar_t*)"brick4.jpg");
 	if (glfwGetKey(GLFW_KEY_KP_8))
 		object.material->texture = ilutGLLoadImage((wchar_t*)"brick5.jpg");
+	if (glfwGetKey('N'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (glfwGetKey('M'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
