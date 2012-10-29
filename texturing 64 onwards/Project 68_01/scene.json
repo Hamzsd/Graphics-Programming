@@ -1,0 +1,200 @@
+{
+	"geometry":
+	{
+		"sphere":
+		{
+			"shape": "sphere",
+			"slices": 20,
+			"stacks": 20
+		},
+		"cube":
+		{
+			"shape": "cube"
+		},
+		"plane":
+		{
+			"shape": "plane",
+			"width": 20,
+			"depth": 20
+		}
+	},
+	"materials":
+	{
+		"mat_001":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.1, 0.1, 0.1, 1.0],
+			"diffuse": [0.1, 0.1, 0.1, 1.0],
+			"specular": [0.1, 0.1, 0.1, 1.0],
+			"shininess": 2.0
+		},
+		"mat_002":
+		{
+			"emmisive": [1.0, 1.0, 1.0, 1.0],
+			"ambient": [0.0, 0.0, 0.0, 1.0],
+			"diffuse": [0.0, 0.0, 0.0, 1.0],
+			"specular": [0.0, 0.0, 0.0, 1.0],
+			"shininess": 1.0
+		},
+		"mat_003":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.0, 0.6, 0.3, 1.0],
+			"diffuse": [0.0, 0.6, 0.3, 1.0],
+			"specular": [0.0, 0.6, 0.3, 1.0],
+			"shininess": 1.0
+		},
+		"mat_004":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.1, 0.5, 0.5, 1.0],
+			"diffuse": [0.1, 0.5, 0.5, 1.0],
+			"specular": [0.1, 0.5, 0.5, 1.0],
+			"shininess": 2.0
+		},
+		"mat_005":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.2, 0.4, 0.3, 1.0],
+			"diffuse": [0.2, 0.4, 0.3, 1.0],
+			"specular": [0.2, 0.4, 0.3, 1.0],
+			"shininess": 3.0
+		},
+		"mat_006":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.3, 0.3, 0.1, 1.0],
+			"diffuse": [0.3, 0.3, 0.1, 1.0],
+			"specular": [0.3, 0.3, 0.1, 1.0],
+			"shininess": 4.0
+		}
+	},
+	"objects":
+	{
+		"plane":
+		{
+			"geometry": "plane",
+			"material": "mat_001",
+			"transform":
+			{
+				"position": [0.0, 0.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.0, 1.0, 1.0]
+			}
+		},
+		"sphere":
+		{
+			"geometry": "sphere",
+			"material": "mat_002",
+			"transform":
+			{
+				"position": [0.0, 2.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.1, 0.1, 0.1]
+			}
+		},
+		"cube_001":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [-2.0, 0.25, -2.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.25, 0.25, 0.25]
+			}
+		},
+		"cube_002":
+		{
+			"geometry": "cube",
+			"material": "mat_004",
+			"transform":
+			{
+				"position": [2.0, 0.25, -2.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.25, 0.25, 0.25]
+			}
+		},
+		"cube_003":
+		{
+			"geometry": "cube",
+			"material": "mat_005",
+			"transform":
+			{
+				"position": [-2.0, 0.25, 2.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.25, 0.25, 0.25]
+			}
+		},
+		"cube_004":
+		{
+			"geometry": "cube",
+			"material": "mat_006",
+			"transform":
+			{
+				"position": [2.0, 0.25, 2.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.25, 0.25, 0.25]
+			}
+		}
+	},
+	"lighting":
+	{
+		"ambient" : [0.0, 0.0, 0.1, 1.0],
+		"diffuse" : [0.0, 0.0, 0.2, 1.0],
+		"specular" : [0.0, 0.0, 0.5, 1.0],
+		"lightDir" : [1.0, 0.0, 0.0, 1.0]
+	},
+	"dynamic_lighting":
+	[
+		{
+			"spot":
+			{
+				"ambient": [0.2, 0.2, 0.2, 1.0],
+				"diffuse": [0.5, 0.5, 0.5, 1.0],
+				"specular": [1.0, 1.0, 1.0, 1.0],
+				"lightPos": [0.0, 2.0, 0.0, 1.0],
+				"attenuation": [0.05, 0.001, 0.001, 1.0],
+				"lightDir": [0.0, -1.0, 0.0, 1.0],
+				"power": 0.5,
+				"dist": 10.0
+			},
+			"point":
+			{
+				"ambient": [0.2, 0.0, 0.0, 1.0],
+				"diffuse": [0.2, 0.0, 0.0, 1.0],
+				"specular": [0.2, 0.0, 0.0, 1.0],
+				"lightPos": [-2.0, 2.0, -2.0, 1.0],
+				"attenuation": [0.01, 0.02, 0.0005, 1.0],
+				"dist": 10.0
+			},
+			"point":
+			{
+				"ambient": [0.0, 0.2, 0.0, 1.0],
+				"diffuse": [0.0, 0.2, 0.0, 1.0],
+				"specular": [0.0, 0.2, 0.0, 1.0],
+				"lightPos": [2.0, 2.0, -2.0, 1.0],
+				"attenuation": [0.01, 0.02, 0.0005, 1.0],
+				"dist": 10.0
+			},
+			"point":
+			{
+				"ambient": [0.0, 0.0, 0.2, 1.0],
+				"diffuse": [0.0, 0.0, 0.2, 1.0],
+				"specular": [0.0, 0.0, 0.2, 1.0],
+				"lightPos": [-2.0, 2.0, 2.0, 1.0],
+				"attenuation": [0.01, 0.02, 0.0005, 1.0],
+				"dist": 10.0
+			},
+			"point":
+			{
+				"ambient": [0.2, 0.2, 0.2, 1.0],
+				"diffuse": [0.2, 0.2, 0.2, 1.0],
+				"specular": [0.2, 0.2, 0.2, 1.0],
+				"lightPos": [2.0, 2.0, 2.0, 1.0],
+				"attenuation": [0.01, 0.02, 0.0005, 1.0],
+				"dist": 10.0
+			}
+		}
+	]
+}
