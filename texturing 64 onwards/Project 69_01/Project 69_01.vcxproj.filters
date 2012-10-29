@@ -13,5 +13,90 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{535afd9b-0aa8-47dc-90fe-5a66c8ae5e3f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="brick.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick2.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick3.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick4.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick5.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="scene.json" />
+    <None Include="scene2.json" />
+    <None Include="StackOfCubes.json" />
+    <None Include="lit_textured.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="lit_textured.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="multi_light.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="multi_light.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="texture.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="texture.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="lighting.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
