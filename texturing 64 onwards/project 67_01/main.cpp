@@ -204,6 +204,10 @@ void update(double deltaTime)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	if (glfwGetKey('M'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if (glfwGetKey('B'))
+		object.transform.scale = glm::vec3(1000.0f, 1000.0f, 1000.0f);
+	if (glfwGetKey('V'))
+		object.transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
@@ -232,7 +236,7 @@ void render()
 	eff.begin();
 
 	render(&eff, currentCam->getView(), currentCam->getProjecion(), &object);
-	render(&eff, currentCam->getView(), currentCam->getProjecion(), &plane);
+	//render(&eff, currentCam->getView(), currentCam->getProjecion(), &plane);
 
 	eff.end();
 	
