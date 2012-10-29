@@ -28,6 +28,7 @@ bool running = true;
 
 effect eff;
 render_object object;
+render_object object1;
 render_object plane;
 scene_data* scene;
 chase_camera* cam1;
@@ -36,6 +37,8 @@ target_camera* cam3;
 first_person_camera* cam4;
 camera* currentCam;
 lighting light;
+float screenHeight = 1080.0f;
+float screenWidth = 1920.0f;
 
 void initialise()
 {
@@ -47,18 +50,18 @@ void initialise()
 
 	//Target Camera
 	cam3 = new target_camera();
-	cam3->setProjection(-50.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam3->setProjection(-50.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam3->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
 	cam3->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	//FPS camera
 	cam4 = new first_person_camera();
-	cam4->setProjection(glm::pi<float>() / 4.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam4->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam4->setPositon(glm::vec3(0.0f, 2.0f, 0.0f));
 
 	//arcBall
 	cam2 = new arc_ball_camera();
-	cam2->setProjection(45.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam2->setProjection(45.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam2->setTarget(glm::vec3(0.0f, 2.0f, 0.0f));
 	cam2->setDistance(10.0f);
 	cam2->setMinRotationY(-glm::pi<float>() / 2.0f);
@@ -68,7 +71,7 @@ void initialise()
 
 	//chaseCamera
 	cam1 = new chase_camera();
-	cam1->setProjection(45.0f, 800.0f/600.0f, 0.1f, 10000.0f);
+	cam1->setProjection(45.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam1->setFollowPosition(object.transform.position);
 	cam1->setPositionOffset(glm::vec3(10.0f, 0.0f, 10.0f));
 	cam1->setSpringiness(0.5f);
@@ -84,15 +87,29 @@ void initialise()
 	if (!eff.create())
 		exit(EXIT_FAILURE);
 
-	object.geometry = createSierpinski(5);
+	object.geometry = createBox();
 	object.material = new material();
-	object.material->data.ambient = glm::vec4(0.5f, 0.25f, 0.15f, 1.0f);
+	object.material->data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object.material->data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object.material->data.specular = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object.material->data.emissive = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	/*object.material->data.ambient = glm::vec4(0.5f, 0.25f, 0.15f, 1.0f);
 	object.material->data.diffuse = glm::vec4(0.5f, 0.25f, 0.15f, 1.0f);
 	object.material->data.specular = glm::vec4(0.5f, 0.25f, 0.15f, 1.0f);
-	object.material->data.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	object.material->data.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);*/
 	object.material->data.shininess = 2.0f;
 	object.material->texture = ilutGLLoadImage((wchar_t*)"brick2.jpg");
 	object.material->create();
+
+	object1.geometry = createBox();
+	object1.material = new material();
+	object1.material->data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object1.material->data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object1.material->data.specular = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object1.material->data.emissive = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	object1.material->data.shininess = 2.0f;
+	object1.material->texture = ilutGLLoadImage((wchar_t*)"brick2.jpg");
+	object1.material->create();
 
 	plane.geometry = createPlane(20,20);
 	//plane.geometry = createTorus(6, 500, 500);
@@ -106,10 +123,10 @@ void initialise()
 	plane.material->data.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	plane.material->create();
 
-	light.data.ambient = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
-	light.data.diffuse = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
-	light.data.specular = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
-	light.data.lightDir = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	light.data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	light.data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	light.data.specular = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	light.data.lightDir = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
 	light.create();
 }
 
@@ -175,9 +192,13 @@ void update(double deltaTime)
 	if(glfwGetKey(GLFW_KEY_RIGHT))
 		object.transform.rotate(-glm::pi<float>() / 100.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	if(glfwGetKey('P'))
-		object.transform.move(glm::vec3(0.1f, 0.0f, 0.0f));
+		object.transform.move(glm::vec3(0.01f, 0.0f, 0.0f));
 	if(glfwGetKey('O'))
-		object.transform.move(-glm::vec3(0.1f, 0.0f, 0.0f));
+		object.transform.move(-glm::vec3(0.01f, 0.0f, 0.0f));
+	if(glfwGetKey('I'))
+		object.transform.move(glm::vec3(0.0f, 0.0f, 0.01f));
+	if(glfwGetKey('U'))
+		object.transform.move(-glm::vec3(0.0f, 0.0f, 0.01f));
 
 	float speed = 5.0f;
 	
@@ -252,7 +273,7 @@ void render()
 	light.bind(&eff);
 
 	render(&eff, currentCam->getView(), currentCam->getProjecion(), &object);
-	//render(&eff, currentCam->getView(), currentCam->getProjecion(), &plane);
+	render(&eff, currentCam->getView(), currentCam->getProjecion(), &object1);
 
 	//eff.end();
 	glUseProgram(0);
@@ -267,7 +288,7 @@ int main()
 {
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
-	if (!glfwOpenWindow(800, 600, 0, 0, 0, 0, 0, 0, GLFW_WINDOW))
+	if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 0, 0, GLFW_WINDOW))
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
