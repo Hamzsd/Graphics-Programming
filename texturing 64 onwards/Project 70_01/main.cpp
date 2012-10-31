@@ -87,7 +87,7 @@ void initialise()
 	if (!eff.create())
 		exit(EXIT_FAILURE);
 
-	object.geometry = createBox();
+	object.geometry = createPlane(5, 5);
 	object.material = new material();
 	object.material->data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
 	object.material->data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
@@ -101,7 +101,7 @@ void initialise()
 	object.material->texture = ilutGLLoadImage((wchar_t*)"brick2.jpg");
 	object.material->create();
 
-	object1.geometry = createBox();
+	object1.geometry = createPlane(5, 5);
 	object1.material = new material();
 	object1.material->data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
 	object1.material->data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
@@ -123,7 +123,7 @@ void initialise()
 	plane.material->data.emissive = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	plane.material->create();
 
-	light.data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
+	light.data.ambient = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
 	light.data.diffuse = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
 	light.data.specular = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
 	light.data.lightDir = glm::vec4(0.0f, 1.0f, 1.0f, 0.0f);
@@ -273,7 +273,7 @@ void render()
 	light.bind(&eff);
 
 	render(&eff, currentCam->getView(), currentCam->getProjecion(), &object);
-	render(&eff, currentCam->getView(), currentCam->getProjecion(), &object1);
+	//render(&eff, currentCam->getView(), currentCam->getProjecion(), &object1);
 
 	//eff.end();
 	glUseProgram(0);
