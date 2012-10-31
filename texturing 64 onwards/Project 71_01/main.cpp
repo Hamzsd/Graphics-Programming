@@ -28,7 +28,8 @@ bool running = true;
 
 effect eff;
 scene_data* scene;
-target_camera* cam;
+target_camera* cam1;
+first_person_camera* cam;
 float screenHeight = 600.0f;
 float screenWidth = 800.0f;
 
@@ -41,10 +42,15 @@ void initialise()
 	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
 	//Target Camera
-	cam = new target_camera();
-	cam->setProjection(glm::degrees(glm::pi<float>() / 4.0f), screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
-	cam->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+	cam1 = new target_camera();
+	cam1->setProjection(glm::degrees(glm::pi<float>() / 4.0f), screenWidth/screenHeight, 0.1f, 10000.0f);
+	cam1->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
+	cam1->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+
+	//fps cam
+	cam = new first_person_camera();
+	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
+	cam->setPositon(glm::vec3(2.0f, 0.0f, 2.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -88,32 +94,41 @@ void initialise()
 //		cam2->rotate(0.0f, -glm::pi<float>() / 100.0f);
 //}
 //
-//void moveFPSCam(float deltaTime, float speed)
-//{
-//	//fps cam controls
-//	if (glfwGetKey('W'))
-//		cam4->move(glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
-//	if (glfwGetKey('S'))
-//		cam4->move(-glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
-//	if (glfwGetKey('A'))
-//		cam4->move(glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
-//	if (glfwGetKey('D'))
-//		cam4->move(-glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
-//	if (glfwGetKey('E'))
-//		cam4->rotate(-glm::pi<float>() / 4.0f * deltaTime, 0.0f);
-//	if (glfwGetKey('Q'))
-//		cam4->rotate(glm::pi<float>() / 4.0f * deltaTime, 0.0f);
-//	if (glfwGetKey(GLFW_KEY_LCTRL))
-//		cam4->move(-glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
-//	if (glfwGetKey(GLFW_KEY_LSHIFT))
-//		cam4->move(glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
-//}
+void moveFPSCam(float deltaTime, float speed)
+{
+	//fps cam controls
+	if (glfwGetKey('W'))
+		cam->move(glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
+	if (glfwGetKey('S'))
+		cam->move(-glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
+	if (glfwGetKey('A'))
+		cam->move(glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
+	if (glfwGetKey('D'))
+		cam->move(-glm::vec3(speed, 0.0f, 0.0f) * (float)deltaTime);
+	if (glfwGetKey('E'))
+		cam->rotate(-glm::pi<float>() / 4.0f * deltaTime, 0.0f);
+	if (glfwGetKey('Q'))
+		cam->rotate(glm::pi<float>() / 4.0f * deltaTime, 0.0f);
+	if (glfwGetKey(GLFW_KEY_LCTRL))
+		cam->move(-glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
+	if (glfwGetKey(GLFW_KEY_LSHIFT))
+		cam->move(glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
+}
 //================================================================================
 
 void update(double deltaTime)
 {
 	cam->update(deltaTime);
-	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);	
+	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
+	moveFPSCam(deltaTime, 2.0f);
+	float angle  = 0.1f;
+	if (glfwGetKey('K'))
+	{
+		
+		angle = angle + 0.1f;
+		scene->objects["cylinder"]->transform.rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+	std::cout<<angle<<"\n";
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)

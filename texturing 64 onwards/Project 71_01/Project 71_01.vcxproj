@@ -94,6 +94,7 @@
     <None Include="StackOfCubes.json" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
+    <None Include="trunk.JPG" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
