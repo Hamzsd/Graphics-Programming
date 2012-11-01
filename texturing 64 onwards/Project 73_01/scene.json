@@ -1,0 +1,98 @@
+{
+	"geometry":
+	{
+		"plane":
+		{
+			"shape": "plane",
+			"width": 20,
+			"depth": 20
+		},
+		"cube":
+		{
+			"shape": "cube"
+		}
+	},
+	"textures":
+	{
+		"grass" : "grass.jpg",
+		"alpha" : "alphamap2.png",
+		"alpha1": "alphamap1.png",
+		"alpha2": "alpha3.jpg",
+		"water" : "water.jpg",
+		"star" : "brick5.jpg"
+	},
+	"materials":
+	{
+		"mat_001":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.8, 0.8, 0.8, 1.0],
+			"diffuse": [0.8, 0.8, 0.8, 1.0],
+			"specular": [1.0, 1.0, 1.0, 1.0],
+			"shininess": 2.0,
+			"texture": "grass"
+		},
+		"mat_002":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.8, 0.8, 0.8, 1.0],
+			"diffuse": [0.8, 0.8, 0.8, 1.0],
+			"specular": [1.0, 1.0, 1.0, 1.0],
+			"shininess": 2.0,
+			"texture": "water"
+		},
+		"mat_003":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.8, 0.8, 0.8, 1.0],
+			"diffuse": [0.8, 0.8, 0.8, 1.0],
+			"specular": [1.0, 1.0, 1.0, 1.0],
+			"shininess": 2.0,
+			"texture": "star"
+		}
+	},
+	"objects":
+	{
+		"plane":
+		{
+			"geometry": "plane",
+			"material": "mat_001",
+			"transform":
+			{
+				"position": [0.0, 0.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.0, 1.0, 1.0]
+			}
+		},
+		"cube":
+		{
+			"geometry": "cube",
+			"material": "mat_002",
+			"transform":
+			{
+				"position": [0.0, 2.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.0, 1.0, 1.0]
+			}
+		},
+		"cube1":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [0.0, 0.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [100.0, 100.0, 100.0]
+			}
+		}
+	},
+	"lighting":
+	{
+		"ambient" : [0.8, 0.9, 1.0, 1.0],
+		"diffuse" : [0.8, 0.9, 1.0, 1.0],
+		"specular" : [0.8, 0.9, 1.0, 1.0],
+		"lightDir" : [1.0, 0.0, 0.0, 1.0]
+	},
+	"dynamic_lighting":	[""]
+}
