@@ -64,6 +64,7 @@ void initialise()
 		exit(EXIT_FAILURE);
 
 	scene = loadScene("scene.json");
+	
 }
 
 //=================Move camera methods=======================================
