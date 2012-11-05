@@ -668,6 +668,15 @@ geometry* createSphere(int divisions)
 		glm::vec3(-0.816497, -0.471405, -0.333333),
 		glm::vec3(0.816497, -0.471405, -0.333333)
 	};
+
+	glm::vec2 t[4] = 
+	{
+		glm::vec2(v[0].x, v[0].y),
+		glm::vec2(v[1].x, v[1].y),
+		glm::vec2(v[2].x, v[2].y),
+		glm::vec2(v[3].x, v[3].y)
+	};
+	
 	divideTriangle(geom, v[0], v[1], v[2], divisions);
 	divideTriangle(geom, v[3], v[2], v[1], divisions);
 	divideTriangle(geom, v[0], v[3], v[1], divisions);
