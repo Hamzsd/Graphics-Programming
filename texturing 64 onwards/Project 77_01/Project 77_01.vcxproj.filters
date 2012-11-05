@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{9bc3e3a6-1075-4c15-99a0-43dfc071838e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JSON files">
+      <UniqueIdentifier>{2515984b-c4ef-4309-8fa2-908c6b614413}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="alpha3.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="alphamap1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="alphamap2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick2.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick3.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick4.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brick5.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="grass.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="OpenGL.props" />
+    <None Include="trunk.JPG">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="water.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blend.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="multi_light.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lighting.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lit_blended.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lit_blended.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lit_textured.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lit_textured.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="multi_light.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="point_light.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="spot_light.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="texture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="scene.json">
+      <Filter>JSON files</Filter>
+    </None>
+    <None Include="StackOfCubes.json">
+      <Filter>JSON files</Filter>
+    </None>
+    <None Include="scene2.json">
+      <Filter>JSON files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

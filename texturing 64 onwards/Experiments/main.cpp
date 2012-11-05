@@ -204,7 +204,7 @@ int main()
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-
+	glfwSetWindowTitle("Example Program: Craig McMillan 10004794 ");
 	GLenum error = glewInit();
 	if (error != GLEW_OK)
 	{
@@ -232,14 +232,24 @@ int main()
 	initialise();
 
 	double prevTimeStamp = glfwGetTime();
+	double lastFPS = glfwGetTime();
 	double currentTimeStamp;
+	int nbFrames = 0;
 	while (running)
 	{
 		currentTimeStamp = glfwGetTime();
+		//calculate frame rate
+		nbFrames++;
 		update(currentTimeStamp - prevTimeStamp);
+		if (currentTimeStamp - lastFPS >= 1.0)
+		{			
+			printf("%f ms/frame\n", double(nbFrames));
+			nbFrames = 0;
+			lastFPS += 1.0;
+		}
 		render();
 		prevTimeStamp = currentTimeStamp;
-	}
+	} 
 
 	cleanup();
 
