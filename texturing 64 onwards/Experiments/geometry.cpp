@@ -220,7 +220,7 @@ geometry* createDisk(int slices)
 {
 	geometry* geom = new geometry();
 	glm::vec3 centre(0.0f, 0.0f, 0.0f);
-	glm::vec3 vertex_prev(1.0f, 0.01, 0.0f);
+	glm::vec3 vertex_prev(1.0f, 0.0, 0.0f);
 	glm::vec3 vertex_current;
 	float deltaAngle = (2.0f * glm::pi<float>()) / slices;
 	for (int i = 1; i <= slices; ++i)

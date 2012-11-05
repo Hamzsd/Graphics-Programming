@@ -30,8 +30,10 @@ effect eff;
 scene_data* scene;
 target_camera* cam;
 first_person_camera* cam1;
-float screenHeight = 600.0f;
-float screenWidth = 800.0f;
+//float screenHeight = 600.0f;
+//float screenWidth = 800.0f;
+float screenHeight = 1080.0f;
+float screenWidth = 1920.0f;
 
 glm::vec3 lightAim(0.0f, 0.0f, 0.0f);
 float power = 1.0f;
@@ -53,7 +55,8 @@ void initialise()
 	//fps cam
 	cam1 = new first_person_camera();
 	cam1->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam1->setPositon(glm::vec3(-0.55f, 2.76f, -22.8f));
+	//cam1->setPositon(glm::vec3(-0.55f, 2.76f, -22.8f));
+	cam1->setPositon(glm::vec3(5.0f, 2.76f, 5.0f));
 	cam1->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
@@ -70,7 +73,7 @@ void initialise()
 	if (!eff.create())
 		exit(EXIT_FAILURE);
 
-	scene = loadScene("myScene.json");
+	scene = loadScene("TableAndChairs.json");
 	//scene->objects["seat2"]->transform.scale = glm::vec3(1.0f, 5.0f, 1.0f);
 	
 }
@@ -125,18 +128,18 @@ void moveFPSCam(float deltaTime, float speed)
 
 void update(double deltaTime)
 {
+	float speed = 0.05f;
 	cam1->update(deltaTime);
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	moveFPSCam(deltaTime, 2.0f);
 	float angle  = 0.1f;
-	if (glfwGetKey('K'))
+	if (glfwGetKey('1'))
 	{
-		
-		angle = angle + 0.1f;
-		scene->objects["seat2"]->transform.rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
+		scene->objects["backSeat"]->transform.rotate(0.01f, (glm::vec3(1.0f, 0.0f, 1.0f)));
 	}
 	
-	std::cout<<cam1->getPosition().x<<" , "<<cam1->getPosition().y<<" , "<<cam1->getPosition().z<<"\n";
+	scene->objects["skybox"]->transform.rotate(0.0002, glm::vec3(0.0f, 1.0f, 0.0f));
+	//std::cout<<cam1->getPosition().x<<" , "<<cam1->getPosition().y<<" , "<<cam1->getPosition().z<<"\n";
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)

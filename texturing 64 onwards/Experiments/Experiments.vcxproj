@@ -81,6 +81,9 @@
     <None Include="alphamap2.png" />
     <None Include="blend.frag" />
     <None Include="brick.jpg" />
+    <None Include="chair.json" />
+    <None Include="table.json" />
+    <None Include="TableAndChairs.json" />
     <None Include="tree.jpg" />
     <None Include="brick3.jpg" />
     <None Include="brick4.jpg" />
