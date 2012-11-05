@@ -22,6 +22,11 @@
 			"shape": "shpere",
 			"slices": 20,
 			"stacks": 20
+		},
+		"divSphere":
+		{
+			"shape": "dicShpere",
+			"divisions" : 4
 		}
 	},
 	"textures":
@@ -68,7 +73,7 @@
 			"diffuse": [3.4, 1.7, 0.4, 1.0],
 			"specular": [3.4, 1.7, 0.4, 1.0],
 			"shininess": 2.0,
-			"texture": "trunk"
+			"texture": "tree"
 		}
 	},
 	"objects":
@@ -119,8 +124,8 @@
 		},
 		"sphere":
 		{
-			"geometry": "sphere",
-			"material": "mat_001",
+			"geometry": "divSphere",
+			"material": "mat_002",
 			"transform":
 			{
 				"position": [-8.0, 1.0, -8.0],

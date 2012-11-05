@@ -23,6 +23,7 @@
 #include "light.h"
 #include "scene.h"
 #include "camera.h"
+#include "util.h"
 
 bool running = true;
 
@@ -122,11 +123,14 @@ void update(double deltaTime)
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	moveFPSCam(deltaTime, 2.0f);
 	float angle  = 0.1f;
+	if (glfwGetKey('L'))
+		scene->objects["cylinder"]->transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
 	if (glfwGetKey('K'))
 	{
 		
 		angle = angle + 0.1f;
-		scene->objects["cylinder"]->transform.rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f));
+		scene->objects["cylinder"]->transform.rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f));
+		scene->objects["cylinder"]->transform.scale += glm::vec3(0.05f, 0.05f, 0.05f);
 	}
 	//std::cout<<angle<<"\n";
 }
@@ -138,7 +142,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 	glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));
 	glUniformMatrix4fv(eff->getUniformIndex("modelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(mit));
 	glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object->transform.getTransformationMatrix()));
-	
+	CHECK_GL_ERROR
 	object->material->bind(eff);
 
 	glBindVertexArray(object->geometry->vao);
@@ -147,10 +151,12 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->geometry->indexBuffer);
 		glDrawElements(GL_TRIANGLES, object->geometry->indices.size(), GL_UNSIGNED_INT, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		CHECK_GL_ERROR
 	}
 	else
 		glDrawArrays(GL_TRIANGLES, 0, object->geometry->vertices.size());
 	glBindVertexArray(0);
+	CHECK_GL_ERROR
 }
 
 void render()
@@ -170,6 +176,7 @@ void render()
 
 	eff.end();
 	glUseProgram(0);
+	CHECK_GL_ERROR
 	glfwSwapBuffers();
 }
 
@@ -179,6 +186,8 @@ void cleanup()
 
 int main()
 {
+	SET_DEBUG
+
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 	if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 0, 0, GLFW_WINDOW))

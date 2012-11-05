@@ -54,6 +54,11 @@ void readGeometry(scene_data* scene, const boost::property_tree::ptree& pt)
 			int stacks = iter->second.get_child("stacks").get_value<int>();
 			geom = createSphere(stacks, slices);
 		}
+		else if (name =="divSphere")
+		{
+			int divisions = iter->second.get_child("divisions").get_value<int>();
+			geom = createSphere(divisions);
+		}
 		else if (name == "torus")
 		{
 			float radius = iter->second.get_child("radius").get_value<float>();

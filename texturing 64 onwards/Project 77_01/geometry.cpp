@@ -628,6 +628,9 @@ void triangle(geometry* geom, const glm::vec3& a, glm::vec3& b, glm::vec3& c)
 	geom->normals.push_back(b);
 	geom->normals.push_back(c);
 
+	for (int i = 0; i < 3; ++i)
+		geom->texcoords.push_back(tetrahedron_texcoords[i % 3]);;
+
 	//for (int i = 0; i < 3; ++i) //makes a bumpy sphere
 	//	geom->normals.push_back(normal);
 }
@@ -672,6 +675,7 @@ geometry* createSphere(int divisions)
 
 	createVertexBuffer(geom);
 	createNormalBuffer(geom);
+	createTexBuffer(geom);
 	glBindVertexArray(0);
 	return geom;
 }
