@@ -4,7 +4,8 @@
 #include <cstdlib>
 #include <GL\glfw.h>
 
-//#include <GL\gl.h>
+#include <GL\gl.h>
+
 
 
 const GLint FIREWORK_PARTICLES = 70;
