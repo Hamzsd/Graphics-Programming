@@ -34,7 +34,7 @@ target_camera* cam1;
 first_person_camera* cam;
 float screenHeight = 600.0f;
 float screenWidth = 800.0f;
-const int FIREWORKS = 15;
+const int FIREWORKS = 1;
 int frameCount = 0;
 
 Firework fw[FIREWORKS];
@@ -51,7 +51,7 @@ void initialise()
 	glClearAccum(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	glEnable(GL_POINT_SMOOTH); // Smooth the points so that they're circular and not square
-	 glPointSize(5.0f);
+	glPointSize(5.0f);
 	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -64,7 +64,7 @@ void initialise()
 	//fps cam
 	cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 0.0f, -20.0f));
+	cam->setPositon(glm::vec3(0.0f, 0.0f, -500.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -139,7 +139,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 void drawFireworks()
 {
 	// Displacement trick for exact pixelisation
-    glTranslatef(0.375, 0.375, 0);
+    //glTranslatef(0.375, 0.375, 0);
 
 	// Draw our fireworks
 	for (int loop = 0; loop < FIREWORKS; loop++)
@@ -192,19 +192,20 @@ void render()
 	scene->light.bind(&eff);
 
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
+
+	drawFireworks();
 	
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
 		render(&eff, cam->getView(), cam->getProjecion(), iter->second);
-
-	drawFireworks();
+		
 
 	eff.end();
 	glUseProgram(0);
 	CHECK_GL_ERROR
 	glfwSwapBuffers();
 
-	glAccum(GL_ACCUM, 0.5f);
+	glAccum(GL_ACCUM, 0.2f);
 }
 
 void cleanup()
