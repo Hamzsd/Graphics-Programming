@@ -64,7 +64,7 @@ void initialise()
 	//fps cam
 	cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 0.0f, -500.0f));
+	cam->setPositon(glm::vec3(0.0f, 10.0f, -10.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);

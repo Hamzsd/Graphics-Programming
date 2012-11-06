@@ -5,6 +5,8 @@
 const float Firework::GRAVITY = 0.05f;
 const float Firework::baselineYSpeed = 0.1f;
 const float Firework::maxYSpeed = 0.5f;
+float xs;
+float ys;
 
 Firework::Firework()
 {
@@ -46,6 +48,9 @@ void Firework::initialise()
 	// Flag to keep track of wherter the firework has exploaded
 	hasExploded = false;
 
+	xs = 0.1;
+	ys = 0.1;
+
 	std::cout<< "initialised a firework." <<std::endl;
 }
 
@@ -68,8 +73,8 @@ void Firework::move()
 		{
 			for (int i = 0; i < FIREWORK_PARTICLES; ++i)
 			{
-				xSpeed[i] = -4 + (rand() / (float)RAND_MAX) * 8;
-				ySpeed[i] = -4 + (rand() / (float)RAND_MAX) * 8;
+				x[i] -= xs;
+				y[i] += ys;
 			}
 			hasExploded = true;
 			std::cout<<"booom " <<x[0]<<" , "<<y[0]<<" , "<<zPos[0]<<std::endl;
@@ -78,17 +83,31 @@ void Firework::move()
 
 void Firework::explode()
 {
+	
 	for (int i = 0; i < FIREWORK_PARTICLES; ++i)
 	{
-		xSpeed[i] *= 0.99; //dampen x speed
-		float speed = 0.1f;
-		//move particle
-		x[i] += xSpeed[i];
-		y[i] += ySpeed[i];
+		
+		if (i < 25)
+		{
+			x[i] -= xs;
+			y[i] += ys;
+		}
+		if (i > 25 && i < 50)
+		{
+			x[i] -= xs;
+			y[i] -= ys;
+		}
+		if (i > 50 && i < 75)
+		{
+			x[i] += xs;
+			y[i] -= ys;
+		}
+		if (i > 75 && i <100)
+		{
+			x[i] += xs;
+			y[i] += ys;
+		}
 
-		speed  *-1;
-		//apply gravity
-		ySpeed[i] += Firework::GRAVITY;
 		
 	}
 	std::cout<<"pos at explosition " <<x[0]<<" , "<<y[0]<<" , "<<zPos[0]<<std::endl;

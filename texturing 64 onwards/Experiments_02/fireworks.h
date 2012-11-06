@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <GL\glfw.h>
 
-const GLint FIREWORK_PARTICLES = 70;
+const GLint FIREWORK_PARTICLES = 100;
 
 class Firework
 {
