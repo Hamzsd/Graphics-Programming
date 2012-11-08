@@ -26,7 +26,7 @@ void Firework::initialise()
 	{
 		x[i] = 0.0f;
 		y[i] = -100.0f; //NOTE: in the other code this is - but i think it should be +
-		zPos[i] = -1500.0f;
+		zPos[i] = -0.0f;
 		xSpeed[i] = 0.001;
 		ySpeed[i] = 0.001;
 		//std::cout<<"initi"<<x[0]<<" , " <<y[0]<< ", "<<zPos[0]<<std::endl;
@@ -68,13 +68,17 @@ void Firework::move()
 	}
 		framesUntilLaunch--; //decrease countdown
 
+	
+
 	//once pos turns positive - make it go boom
 		if (y[0] > 4.0f)
 		{
 			for (int i = 0; i < FIREWORK_PARTICLES; ++i)
 			{
-				x[i] -= xs;
-				y[i] += ys;
+				xSpeed[i] = -4 + (rand() / (float)RAND_MAX) * 8;
+				ySpeed[i] = -4 + (rand() / (float)RAND_MAX) * 8;
+				/*x[i] -= xs;
+				y[i] += ys;*/
 			}
 			hasExploded = true;
 			std::cout<<"booom " <<x[0]<<" , "<<y[0]<<" , "<<zPos[0]<<std::endl;
@@ -83,8 +87,21 @@ void Firework::move()
 
 void Firework::explode()
 {
+
+	for (int loop = 0; loop < FIREWORK_PARTICLES; loop++)
+	{
+		// Dampen the horizontal speed by 1% per frame
+		xSpeed[loop] *= 0.99;
+ 
+		// Move the particle
+		x[loop] += xSpeed[loop];
+		y[loop] += ySpeed[loop];
+ 
+		// Apply gravity to the particle's speed
+		ySpeed[loop] += Firework::GRAVITY;
+	}
 	
-	for (int i = 0; i < FIREWORK_PARTICLES; ++i)
+	/*for (int i = 0; i < FIREWORK_PARTICLES; ++i)
 	{
 		
 		if (i < 25)
@@ -110,7 +127,7 @@ void Firework::explode()
 
 		
 	}
-	std::cout<<"pos at explosition " <<x[0]<<" , "<<y[0]<<" , "<<zPos[0]<<std::endl;
+	std::cout<<"pos at explosition " <<x[0]<<" , "<<y[0]<<" , "<<zPos[0]<<std::endl;*/
 
 	
 	//fade out particles

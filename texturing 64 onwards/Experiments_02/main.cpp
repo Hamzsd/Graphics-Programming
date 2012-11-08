@@ -51,7 +51,7 @@ void initialise()
 	glClearAccum(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	glEnable(GL_POINT_SMOOTH); // Smooth the points so that they're circular and not square
-	glPointSize(5.0f);
+	glPointSize(fw->particleSize);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -64,7 +64,7 @@ void initialise()
 	//fps cam
 	cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 10.0f, -50.0f));
+	cam->setPositon(glm::vec3(0.0f, 10.0f, -500.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -108,6 +108,11 @@ void update(double deltaTime)
 	cam->update(deltaTime);
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	moveFPSCam(deltaTime, 2.0f);
+
+	if (glfwGetKey('P'))
+		cam->setPositon(glm::vec3(0.0f, 10.0f, -500.0f));
+	if (glfwGetKey('O'))
+		cam->setPositon(glm::vec3(0.0f, 10.0f, -50.0f));
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
@@ -139,7 +144,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 void drawFireworks()
 {
 	// Displacement trick for exact pixelisation
-	//glTranslatef(0.375, 0.375, 0);
+	glTranslatef(0.375, 0.375, 0);
 
 	// Draw our fireworks
 	for (int loop = 0; loop < FIREWORKS; loop++)
@@ -205,7 +210,7 @@ void render()
 	CHECK_GL_ERROR
 	glfwSwapBuffers();
 
-	glAccum(GL_ACCUM, 0.2f);
+	glAccum(GL_ACCUM, 0.7f); //0.2f
 }
 
 void cleanup()
