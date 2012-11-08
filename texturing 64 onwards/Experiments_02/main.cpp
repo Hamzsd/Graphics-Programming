@@ -53,7 +53,7 @@ void initialise()
 	glEnable(GL_POINT_SMOOTH); // Smooth the points so that they're circular and not square
 	glPointSize(5.0f);
 	glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Target Camera
 	cam1 = new target_camera();
@@ -64,7 +64,7 @@ void initialise()
 	//fps cam
 	cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 10.0f, -10.0f));
+	cam->setPositon(glm::vec3(0.0f, 10.0f, -50.0f));
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
@@ -139,7 +139,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 void drawFireworks()
 {
 	// Displacement trick for exact pixelisation
-    //glTranslatef(0.375, 0.375, 0);
+	//glTranslatef(0.375, 0.375, 0);
 
 	// Draw our fireworks
 	for (int loop = 0; loop < FIREWORKS; loop++)
