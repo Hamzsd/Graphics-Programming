@@ -32,9 +32,9 @@ effect eff;
 scene_data* scene;
 target_camera* cam1;
 first_person_camera* cam;
-float screenHeight = 600.0f;
-float screenWidth = 800.0f;
-const int FIREWORKS = 1;
+float screenHeight = 1080.0f;
+float screenWidth = 1920.0f;
+const int FIREWORKS = 3;
 int frameCount = 0;
 
 Firework fw[FIREWORKS];
@@ -167,7 +167,7 @@ void drawFireworks()
 				}
  
 				// Draw the point
-				glVertex2f(fw[loop].x[particleLoop], fw[loop].y[particleLoop]);
+				glVertex3f(fw[loop].x[particleLoop], fw[loop].y[particleLoop], fw[loop].z[particleLoop]);
 			glEnd();
 		}
  
