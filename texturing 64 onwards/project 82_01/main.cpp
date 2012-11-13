@@ -24,6 +24,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "util.h"
+#include "skybox.h"
 
 bool running = true;
 
@@ -31,6 +32,8 @@ effect eff;
 scene_data* scene;
 target_camera* cam1;
 first_person_camera* cam;
+skybox* sb;
+
 float screenHeight = 600.0f;
 float screenWidth = 800.0f;
 
@@ -67,6 +70,19 @@ void initialise()
 		exit(EXIT_FAILURE);
 	
 	scene = loadScene("scene.json");
+
+	std::vector<std::string> cubemap_texs;
+	cubemap_texs.push_back("xpos.png");
+	cubemap_texs.push_back("xneg.png");
+	cubemap_texs.push_back("ypos.png");
+	cubemap_texs.push_back("yneg.png");
+	cubemap_texs.push_back("zpos.png");
+	cubemap_texs.push_back("zneg.png");
+
+	cubemap* cm = new cubemap(cubemap_texs);
+	cm->create();
+	sb = new skybox(cm);
+	sb->create();
 }
 
 //=================Move camera methods=======================================
@@ -142,6 +158,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 	glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));
 	glUniformMatrix4fv(eff->getUniformIndex("modelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(mit));
 	glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object->transform.getTransformationMatrix()));
+	CHECK_GL_ERROR
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f), object->transform.scale);
 	glUniformMatrix4fv(eff->getUniformIndex("scale"), 1, GL_FALSE, glm::value_ptr(scale));
 	CHECK_GL_ERROR
@@ -163,23 +180,29 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 
 void render()
 {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	eff.begin();
 
 	scene->dynamic.bind(&eff);
 	scene->light.bind(&eff);
-
+	
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
 	
+	
+	sb->render(cam);
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
 		render(&eff, cam->getView(), cam->getProjecion(), iter->second);
 
+	
 	eff.end();
+	
 	glUseProgram(0);
 	CHECK_GL_ERROR
 	glfwSwapBuffers();
+		
 }
 
 void cleanup()
@@ -231,6 +254,7 @@ int main()
 		currentTimeStamp = glfwGetTime();
 		update(currentTimeStamp - prevTimeStamp);
 		render();
+		
 		prevTimeStamp = currentTimeStamp;
 	}
 

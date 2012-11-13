@@ -2,7 +2,10 @@
 
 #include <string>
 #include <glew.h>
+#include <IL\il.h>
+#include "util.h"
 #include <vector>
+
 
 class cubemap
 {
@@ -18,4 +21,4 @@ public:
 	GLuint getImageID() const { return _image; }
 
 	bool create();
-}
+};

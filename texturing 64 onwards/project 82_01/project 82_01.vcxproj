@@ -99,6 +99,8 @@
     <None Include="point_light.frag" />
     <None Include="scene.json" />
     <None Include="scene2.json" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="spot_light.frag" />
     <None Include="StackOfCubes.json" />
     <None Include="star.jpg" />
@@ -115,10 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cubemap.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="skybox.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
@@ -131,6 +135,7 @@
     <ClInclude Include="material.h" />
     <ClInclude Include="render_object.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="util.h" />
