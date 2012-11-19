@@ -87,6 +87,8 @@
     <None Include="brick5.jpg" />
     <None Include="chair.jpg" />
     <None Include="darkWood.jpg" />
+    <None Include="enviroemtn_map.frag" />
+    <None Include="enviroment_map.vert" />
     <None Include="grass.jpg" />
     <None Include="lighting.frag" />
     <None Include="lit_blended.frag" />

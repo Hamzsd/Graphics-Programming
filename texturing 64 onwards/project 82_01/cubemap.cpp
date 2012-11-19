@@ -52,6 +52,10 @@ bool cubemap::create()
 	glGenTextures(1, &_image);
 	CHECK_GL_ERROR
 
+	//Bind texture as cube map
+	glBindTexture(GL_TEXTURE_CUBE_MAP, _image);
+	CHECK_GL_ERROR
+
 	//set up texture parameters
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
