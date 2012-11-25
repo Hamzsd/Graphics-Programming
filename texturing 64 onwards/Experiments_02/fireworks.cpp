@@ -11,6 +11,7 @@ float ys;
 int rnd = 0;
 
 
+
 Firework::Firework()
 {
 	//call initialise so that object doesnt need to be destroyed when it is re-initialised
@@ -95,19 +96,16 @@ void Firework::move()
 		{
 			for (int i = 0; i < FIREWORK_PARTICLES; ++i)
 			{
-				float buffer = 3;
-
-				float magX = glm::normalize(xSpeed[i]);
-				float magY = glm::normalize(ySpeed[i]);
-				float magZ = glm::normalize(zSpeed[i]);
-						
+										
 				//(x-a)2 + (y-b)2 (z - c)2 = r2
 
 				xSpeed[i]  = ((rand() / (float)RAND_MAX) * 8) ;// / magX;
 				ySpeed[i] = ((rand() / (float)RAND_MAX) * 1) ;// / magY;
 				zSpeed[i]  = ((rand() / (float)RAND_MAX) * 1);// / magZ;
 											
-
+				p1x = x[1];
+				p1y = y[1];
+				p1z = z[1];
 
 				if(rand()%2)
 				{

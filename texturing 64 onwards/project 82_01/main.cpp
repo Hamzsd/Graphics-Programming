@@ -56,10 +56,10 @@ void initialise()
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam->setPositon(glm::vec3(2.0f, 0.0f, 2.0f));
 
-	/*if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
-		exit(EXIT_FAILURE);*/
-	if (!eff.addShader("tarnished.vert", GL_VERTEX_SHADER))
+	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
+	/*if (!eff.addShader("tarnished.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);*/
 	/*if (!eff.addShader("enviroment_map.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);*/
 	if (!eff.addShader("lighting.frag", GL_FRAGMENT_SHADER))
@@ -68,10 +68,10 @@ void initialise()
 		exit(EXIT_FAILURE);
 	if (!eff.addShader("spot_light.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
-	/*if (!eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
-		exit(EXIT_FAILURE);*/
-	if (!eff.addShader("tarnished.frag", GL_FRAGMENT_SHADER))
+	if (!eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
+	/*if (!eff.addShader("tarnished.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);*/
 	/*if (!eff.addShader("enviroemtn_map.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);*/
 	if (!eff.create())
@@ -80,12 +80,19 @@ void initialise()
 	scene = loadScene("scene.json");
 
 	std::vector<std::string> cubemap_texs;
-	cubemap_texs.push_back("xpos.png");
+	/*cubemap_texs.push_back("xpos.png");
 	cubemap_texs.push_back("xneg.png");
 	cubemap_texs.push_back("ypos.png");
 	cubemap_texs.push_back("yneg.png");
 	cubemap_texs.push_back("zpos.png");
-	cubemap_texs.push_back("zneg.png");
+	cubemap_texs.push_back("zneg.png");*/
+
+	cubemap_texs.push_back("posx.jpg");
+	cubemap_texs.push_back("negx.jpg");
+	cubemap_texs.push_back("posy.jpg");
+	cubemap_texs.push_back("negy.jpg");
+	cubemap_texs.push_back("posz.jpg");
+	cubemap_texs.push_back("negz.jpg");
 
 	cubemap* cm = new cubemap(cubemap_texs);
 	cm->create();
@@ -170,7 +177,7 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f), object->transform.scale);
 	glUniformMatrix4fv(eff->getUniformIndex("scale"), 1, GL_FALSE, glm::value_ptr(scale));
 	CHECK_GL_ERROR
-	//object->material->bind(eff);
+	object->material->bind(eff);
 
 	glBindVertexArray(object->geometry->vao);
 	if (object->geometry->indexBuffer)
@@ -194,8 +201,8 @@ void render()
 	CHECK_GL_ERROR
 	eff.begin();
 
-	//scene->dynamic.bind(&eff);
-	//scene->light.bind(&eff);
+	scene->dynamic.bind(&eff);
+	scene->light.bind(&eff);
 	
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
 	

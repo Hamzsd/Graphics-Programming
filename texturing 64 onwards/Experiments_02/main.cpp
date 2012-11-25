@@ -109,10 +109,7 @@ void update(double deltaTime)
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	moveFPSCam(deltaTime, 2.0f);
 
-	if (glfwGetKey('P'))
-		cam->setPositon(glm::vec3(0.0f, 10.0f, -500.0f));
-	if (glfwGetKey('O'))
-		cam->setPositon(glm::vec3(0.0f, 10.0f, -50.0f));
+	
 }
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
@@ -163,8 +160,11 @@ void drawFireworks()
 				}
 				else
 				{
+					//float d = sqrt(((fw[loop].p1x - fw[loop].x) ^ 2) + 
 					glColor4f(fw[loop].red, fw[loop].green, fw[loop].blue, fw[loop].alpha);
 				}
+
+				
  
 				// Draw the point
 				glVertex3f(fw[loop].x[particleLoop], fw[loop].y[particleLoop], fw[loop].z[particleLoop]);
