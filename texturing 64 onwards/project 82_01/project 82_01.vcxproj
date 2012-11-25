@@ -108,6 +108,8 @@
     <None Include="star.jpg" />
     <None Include="steele.jpg" />
     <None Include="TableAndChairs.json" />
+    <None Include="tarnished.frag" />
+    <None Include="tarnished.vert" />
     <None Include="texture.frag" />
     <None Include="texture.vert" />
     <None Include="tree.jpg" />

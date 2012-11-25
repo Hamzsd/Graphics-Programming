@@ -131,6 +131,8 @@
     <None Include="skybox.frag" />
     <None Include="enviroment_map.vert" />
     <None Include="enviroemtn_map.frag" />
+    <None Include="tarnished.vert" />
+    <None Include="tarnished.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
