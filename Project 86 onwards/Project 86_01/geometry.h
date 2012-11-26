@@ -49,5 +49,6 @@ geometry* createVertexBuffer(geometry* geom);
 geometry* createIndexBuffer(geometry* geom);
 geometry* createNormalBuffer(geometry* geom);
 geometry* createTexBuffer(geometry* geom);
-geometry* initiliseBuffers(geometry* geom);
+geometry* createColourBuffer(geometry* geom);
+void initialiseBuffers(geometry* geom);
 geometry* createSphere(int divisions);

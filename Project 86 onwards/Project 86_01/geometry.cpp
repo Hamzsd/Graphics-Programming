@@ -13,7 +13,7 @@ void initialiseBuffers(geometry* geom)
 		createTexBuffer(geom);
 
 	if (geom->colours.size() > 0)
-
+		createColourBuffer(geom);
 
 	glBindVertexArray(0);
 }
@@ -611,7 +611,7 @@ geometry* createColourBuffer(geometry* geom)
 	glGenBuffers(1, &geom->colourBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, geom->colourBuffer);
 	glBufferData(GL_ARRAY_BUFFER, geom->colours.size() * sizeof(glm::vec4), &geom->colours[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0); // might not be 2 , 2
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, 0); // might not be 2 , 2
 	glEnableVertexAttribArray(3);
 
 	return geom;

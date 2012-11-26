@@ -40,7 +40,7 @@ void Firework::initialise()
 	{
 		x[i] = xLoc;
 		y[i] = -5.0f; //NOTE: in the other code this is - but i think it should be +
-		z[i] = 250.0f;
+		z[i] = 0.0f;
 		xSpeed[i] = xSpeedVal;
 		ySpeed[i] = 0.001;
 		//std::cout<<"initi"<<x[0]<<" , " <<y[0]<< ", "<<zPos[0]<<std::endl;

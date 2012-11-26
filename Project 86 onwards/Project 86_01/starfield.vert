@@ -4,7 +4,7 @@ uniform mat4 modelViewProjection;
 uniform float time;
 
 layout (location = 0) in vec3 position;
-layout (location = 1) in vec4 colour;
+layout (location = 3) in vec4 colour;
 
 out vec4 colourOut;
 

@@ -45,18 +45,18 @@ void initialise()
 		
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_VERTEX_ARRAY);
-	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.3f, 0.6f, 0.9f, 1.0f);
 
 	//Target Camera
 	cam1 = new target_camera();
 	cam1->setProjection(glm::degrees(glm::pi<float>() / 4.0f), screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam1->setPositon(glm::vec3(10.f, 10.0f, 10.0f));
+	cam1->setPositon(glm::vec3(10.f, 10.0f, -10.0f));
 	cam1->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	//fps cam
 	cam = new first_person_camera();
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(2.0f, 0.0f, 2.0f));
+	cam->setPositon(glm::vec3(2.0f, 10.0f, -1000.0f));
 
 	
 	if (!eff.addShader("starfield.vert", GL_VERTEX_SHADER))
@@ -86,29 +86,30 @@ void update(double deltaTime)
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
 {
-	glm::mat4 mvp = projection * view * object->transform.getTransformationMatrix();
-	glUniformMatrix4fv(eff->getUniformIndex("modelViewProjection"), 1, GL_FALSE, glm::value_ptr(mvp));
-	glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));
-	glUniformMatrix4fv(eff->getUniformIndex("modelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(mit));
-	glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object->transform.getTransformationMatrix()));
-	CHECK_GL_ERROR
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f), object->transform.scale);
-	glUniformMatrix4fv(eff->getUniformIndex("scale"), 1, GL_FALSE, glm::value_ptr(scale));
-	CHECK_GL_ERROR
-	//object->material->bind(eff);
+	printf("should not get here \n");
+	//glm::mat4 mvp = projection * view * object->transform.getTransformationMatrix();
+	//glUniformMatrix4fv(eff->getUniformIndex("modelViewProjection"), 1, GL_FALSE, glm::value_ptr(mvp));
+	//glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));
+	//glUniformMatrix4fv(eff->getUniformIndex("modelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(mit));
+	//glUniformMatrix4fv(eff->getUniformIndex("model"), 1, GL_FALSE, glm::value_ptr(object->transform.getTransformationMatrix()));
+	//CHECK_GL_ERROR
+	//glm::mat4 scale = glm::scale(glm::mat4(1.0f), object->transform.scale);
+	//glUniformMatrix4fv(eff->getUniformIndex("scale"), 1, GL_FALSE, glm::value_ptr(scale));
+	//CHECK_GL_ERROR
+	////object->material->bind(eff);
 
-	glBindVertexArray(object->geometry->vao);
-	if (object->geometry->indexBuffer)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->geometry->indexBuffer);
-		glDrawElements(GL_TRIANGLES, object->geometry->indices.size(), GL_UNSIGNED_INT, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		CHECK_GL_ERROR
-	}
-	else
-		glDrawArrays(GL_TRIANGLES, 0, object->geometry->vertices.size());
-	glBindVertexArray(0);
-	CHECK_GL_ERROR
+	//glBindVertexArray(object->geometry->vao);
+	//if (object->geometry->indexBuffer)
+	//{
+	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->geometry->indexBuffer);
+	//	glDrawElements(GL_TRIANGLES, object->geometry->indices.size(), GL_UNSIGNED_INT, 0);
+	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//	CHECK_GL_ERROR
+	//}
+	//else
+	//	glDrawArrays(GL_TRIANGLES, 0, object->geometry->vertices.size());
+	//glBindVertexArray(0);
+	//CHECK_GL_ERROR
 }
 
 void render()

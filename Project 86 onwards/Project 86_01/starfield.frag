@@ -4,7 +4,7 @@ uniform sampler2D tex;
 
 in vec4 colourOut;
 
-out vec4 colourl;
+out vec4 colour;
 
 void main()
 {

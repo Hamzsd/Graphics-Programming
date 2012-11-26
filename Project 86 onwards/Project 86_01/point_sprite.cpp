@@ -91,7 +91,7 @@ geometry* createStarField(int num_stars)
 		//randomly select a position
 		glm::vec3 position = glm::vec3(
 			float(3000.0f - (rand() % 6000)) * 0.1f, 
-			float(3000.0f - (rand() % 6000)) * -.1f,
+			float(3000.0f - (rand() % 6000)) * 0.1f,
 			-float(rand() % 1000) - 1.0f);
 
 		//push back the position 
