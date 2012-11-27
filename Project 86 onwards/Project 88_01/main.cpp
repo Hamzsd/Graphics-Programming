@@ -78,22 +78,22 @@ void initialise()
 	if (!eff.create())
 		exit(EXIT_FAILURE);
 
-	if (!text_eff.addShader("texture.vert", GL_VERTEX_SHADER))
+	/*if (!text_eff.addShader("texture.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
 	if (!text_eff.addShader("texture.frag", GL_FRAGMENT_SHADER))
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);*/
 
 	
-	//if (!text_eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
-	//	exit(EXIT_FAILURE);
-	//if (!text_eff.addShader("lighting.frag", GL_FRAGMENT_SHADER))
-	//	exit(EXIT_FAILURE);
-	//if (!text_eff.addShader("point_light.frag", GL_FRAGMENT_SHADER))
-	//	exit(EXIT_FAILURE);
-	//if (!text_eff.addShader("spot_light.frag", GL_FRAGMENT_SHADER))
-	//	exit(EXIT_FAILURE);
-	//if (!text_eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
-	//	exit(EXIT_FAILURE);
+	if (!text_eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);
+	if (!text_eff.addShader("lighting.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
+	if (!text_eff.addShader("point_light.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
+	if (!text_eff.addShader("spot_light.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
+	if (!text_eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
 	if (!text_eff.create())
 		exit(EXIT_FAILURE);
 
