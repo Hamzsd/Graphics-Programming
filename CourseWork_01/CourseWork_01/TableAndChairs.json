@@ -1,0 +1,322 @@
+{
+	"geometry":
+	{
+		"cube":
+		{
+			"shape": "cube"
+		},
+		"plane":
+		{
+			"shape": "plane",
+			"width": 20,
+			"depth": 20
+		},
+		"disk":
+		{
+			"shape": "disk",
+			"slices": 50
+		},
+		"cylinder":
+		{
+			"shape": "cylinder",
+			"slices": 200,
+			"stacks": 200
+		}		
+	},		
+	"textures":
+	{
+		"wood" : "wood.jpg",
+		"grass" : "grass.jpg",
+		"star" : "star.jpg",
+		"whiteWood" : "whiteWood.jpg",
+		"darkWood" : "darkWood.jpg",
+		"chair" : "chair.jpg",
+		"steele": "steele.jpg"		
+	},
+	"materials":
+	{
+		"mat_001":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.0, 0.8, 0.0, 1.0],
+			"diffuse": [0.0, 0.8, 0.0, 1.0],
+			"specular": [0.0, 1.0, 0.0, 1.0],
+			"shininess": 2.0,
+			"texture": "grass"
+		},
+		"mat_002":
+		{
+			"emmisive": [0.0, 0.0, 0.0, 1.0],
+			"ambient": [0.0, 1.0, 1.0, 1.0],
+			"diffuse": [0.0, 1.0, 1.0, 1.0],
+			"specular": [0.0, 1.0, 1.0, 1.0],
+			"shininess": 2.0,
+			"texture": "star"
+		},
+		"mat_003":
+		{
+			"emmisive": [0.71, 0.49, 0.24, 1.0],
+			"ambient": [0.71, 0.49, 0.24, 1.0],
+			"diffuse": [0.71, 0.49, 0.24, 1.0],
+			"specular": [0.71, 0.49, 0.24, 1.0],
+			"shininess": 2.0,
+			"texture": "wood"
+		},
+		"mat_004":
+		{
+			"emmisive": [0.4, 0.4, 0.4, 1.0],
+			"ambient": [0.4, 0.4, 0.4, 1.0],
+			"diffuse": [0.4, 0.4, 0.4, 1.0],
+			"specular": [0.4, 0.4, 0.4, 1.0],
+			"shininess": 2.0,
+			"texture": "steele"
+		},
+		"mat_005":
+		{
+			"emmisive": [0.4, 0.4, 0.4, 1.0],
+			"ambient": [0.4, 0.4, 0.4, 1.0],
+			"diffuse": [0.4, 0.4, 0.4, 1.0],
+			"specular": [0.4, 0.4, 0.4, 1.0],
+			"shininess": 2.0,
+			"texture": "whiteWood"
+		},
+		"mat_006":
+		{
+			"emmisive": [0.1, 0.12, 0.15, 1.0],
+			"ambient": [0.1, 0.12, 0.15, 1.0],
+			"diffuse": [0.1, 0.12, 0.15, 1.0],
+			"specular": [0.1, 0.12, 0.15, 1.0],
+			"shininess": 2.0,
+			"texture": "chair"
+		},
+		"mat_007":
+		{
+			"emmisive": [0.52, 0.37, 0.26, 1.0],
+			"ambient": [0.52, 0.37, 0.26, 1.0],
+			"diffuse": [0.52, 0.37, 0.26, 1.0],
+			"specular": [0.52, 0.37, 0.26, 1.0],
+			"shininess": 2.0,
+			"texture": "darkWood"
+		}			
+	},
+	"objects":
+	{
+		"groundPlane":
+		{
+			"geometry": "plane",
+			"material": "mat_001",
+			"transform":
+			{
+				"position": [0.0, 0.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [10.0, 1.0, 10.0]
+			}
+		},
+		"topTable":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [0.0, 1.6, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.7, 0.1, 1.7]
+			}
+		},
+		"midTable":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [0.0, 0.8, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.6, 0.05, 1.6]
+			}
+		},
+		"leg1":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [1.5, 0.0, 1.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.5, 0.2]
+			}
+		},
+		"leg2":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [1.5, 0.0, -1.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.5, 0.2]
+			}
+		},
+		"leg3":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [-1.5, 0.0, -1.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.5, 0.2]
+			}
+		},
+		"leg4":
+		{
+			"geometry": "cube",
+			"material": "mat_003",
+			"transform":
+			{
+				"position": [-1.5, 0.0, 1.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.5, 0.2]
+			}
+		},
+		"topSeat":
+		{
+			"geometry": "cube",
+			"material": "mat_006",
+			"transform":
+			{
+				"position": [-4.0, 1.6, -4.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.7, 0.3, 1.7]
+			}
+		},
+		"backSeat":
+		{
+			"geometry": "cube",
+			"material": "mat_006",
+			"transform":
+			{
+				"position": [-5.45, 2.7, -4.0],
+				"rotation": [0.0, 1.5, 0.0],
+				"scale": [0.3, 1.0, 1.6]
+			}
+		},
+		"leftSide":
+		{
+			"geometry": "cube",
+			"material": "mat_006",
+			"transform":
+			{
+				"position": [-4.0, 2.2, -2.55],
+				"rotation": [0.0, 1.5, 0.0],
+				"scale": [1.6, 0.3, 0.3]
+			}
+		},
+		"rightSide":
+		{
+			"geometry": "cube",
+			"material": "mat_006",
+			"transform":
+			{
+				"position": [-4.0, 2.2, -5.45],
+				"rotation": [0.0, 1.5, 0.0],
+				"scale": [1.6, 0.3, 0.3]
+			}
+		},
+		"leatherChairLeg1":
+		{
+			"geometry": "cube",
+			"material": "mat_007",
+			"transform":
+			{
+				"position": [-2.5, 0.0, -2.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.3, 0.2]
+			}
+		},
+		"leatherChairLeg2":
+		{
+			"geometry": "cube",
+			"material": "mat_007",
+			"transform":
+			{
+				"position": [-2.5, 0.0, -5.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.3, 0.2]
+			}
+		},
+		"leatherChairLeg3":
+		{
+			"geometry": "cube",
+			"material": "mat_007",
+			"transform":
+			{
+				"position": [-5.5, 0.0, -5.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.3, 0.2]
+			}
+		},
+		"leatherChairLeg4":
+		{
+			"geometry": "cube",
+			"material": "mat_007",
+			"transform":
+			{
+				"position": [-5.5, 0.0, -2.5],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.3, 0.2]
+			}
+		},
+		"skybox":
+		{
+			"geometry": "cube",
+			"material": "mat_002",
+			"transform":
+			{
+				"position": [0.0, 0.0, 0.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1000.0, 1000.0, 1000.0]
+			}
+		},
+		"topSurface":
+		{
+			"geometry": "disk",
+			"material": "mat_005",
+			"transform":
+			{
+				"position": [4.0, 2.0, 4.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [2.0, 2.0, 2.0]
+			}
+		},
+		"bottomSurface":
+		{
+			"geometry": "disk",
+			"material": "mat_004",
+			"transform":
+			{
+				"position": [4.0, 0.1, 4.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [1.0, 1.0, 1.0]
+			}
+		},
+		"stand":
+		{
+			"geometry": "cylinder",
+			"material": "mat_004",
+			"transform":
+			{
+				"position": [4.0, 0.0, 4.0],
+				"rotation": [0.0, 0.0, 0.0],
+				"scale": [0.2, 1.98, 0.2]
+			}
+		}
+	},
+	"lighting":
+	{
+		"ambient" : [0.8, 0.9, 1.0, 1.0],
+		"diffuse" : [0.8, 0.9, 1.0, 1.0],
+		"specular" : [0.8, 0.9, 1.0, 1.0],
+		"lightDir" : [1.0, 0.0, 0.0, 1.0]
+	},
+	"dynamic_lighting":	[""]
+}

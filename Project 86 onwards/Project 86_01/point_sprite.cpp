@@ -93,7 +93,7 @@ geometry* createStarField(int num_stars)
 			float(3000.0f - (rand() % 6000)) * 0.1f, 
 			float(3000.0f - (rand() % 6000)) * 0.1f,
 			-float(rand() % 1000) - 1.0f);
-
+		
 		//push back the position 
 		geom->vertices.push_back(position);
 	}

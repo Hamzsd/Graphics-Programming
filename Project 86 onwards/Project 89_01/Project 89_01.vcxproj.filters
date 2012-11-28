@@ -170,6 +170,7 @@
     </None>
     <None Include="post_process.vert" />
     <None Include="post_process.frag" />
+    <None Include="Greyscale.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">

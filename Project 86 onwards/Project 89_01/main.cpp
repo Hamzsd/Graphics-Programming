@@ -72,7 +72,7 @@ void initialise()
 	effect* post_eff = new effect();
 	if(!post_eff->addShader("post_process.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);
-	if(!post_eff->addShader("post_process.frag", GL_FRAGMENT_SHADER))
+	if(!post_eff->addShader("Greyscale.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
 	if (!post_eff->create())
 		exit(EXIT_FAILURE);
@@ -98,7 +98,7 @@ void update(double deltaTime)
 
 void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection, const render_object* object)
 {
-	printf("should not get here \n");
+	//printf("should not get here \n");
 	glm::mat4 mvp = projection * view * object->transform.getTransformationMatrix();
 	glUniformMatrix4fv(eff->getUniformIndex("modelViewProjection"), 1, GL_FALSE, glm::value_ptr(mvp));
 	glm::mat4 mit = glm::inverse(glm::transpose(object->transform.getTransformationMatrix()));

@@ -154,6 +154,7 @@ void render()
 {
 	eff.begin();
 	scene->light.bind(&eff);
+	scene->dynamic.bind(&eff);
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
 	CHECK_GL_ERROR
 

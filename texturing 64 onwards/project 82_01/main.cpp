@@ -56,24 +56,24 @@ void initialise()
 	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
 	cam->setPositon(glm::vec3(2.0f, 0.0f, 2.0f));
 
-	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
-		exit(EXIT_FAILURE);
+	/*if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);*/
 	/*if (!eff.addShader("tarnished.vert", GL_VERTEX_SHADER))
 		exit(EXIT_FAILURE);*/
-	/*if (!eff.addShader("enviroment_map.vert", GL_VERTEX_SHADER))
-		exit(EXIT_FAILURE);*/
+	if (!eff.addShader("enviroment_map.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);
 	if (!eff.addShader("lighting.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
 	if (!eff.addShader("point_light.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
 	if (!eff.addShader("spot_light.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
-	if (!eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
-		exit(EXIT_FAILURE);
+	/*if (!eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);*/
 	/*if (!eff.addShader("tarnished.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);*/
-	/*if (!eff.addShader("enviroemtn_map.frag", GL_FRAGMENT_SHADER))
-		exit(EXIT_FAILURE);*/
+	if (!eff.addShader("enviroemtn_map.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
 	if (!eff.create())
 		exit(EXIT_FAILURE);
 	
