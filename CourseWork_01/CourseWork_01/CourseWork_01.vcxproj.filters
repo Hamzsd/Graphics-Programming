@@ -183,6 +183,8 @@
     <None Include="CourseWork.json" />
     <None Include="Sepia.frag" />
     <None Include="Insturctions.json" />
+    <None Include="ParkBench.json" />
+    <None Include="Negative.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">

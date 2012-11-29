@@ -47,13 +47,17 @@ const int FIREWORKS = 3;
 int frameCount = 0;
 Firework fw[FIREWORKS];
 char lastKeyPress;
+char selectedPostProc;
 
 target_camera* cam1;
+target_camera* introCam;
 first_person_camera* cam;
+camera* currentCam;
 
 post_process* post_proc;
 post_process* post_proc1;
 post_process* post_proc2;
+post_process* post_proc3;
 
 float screenHeight = 600.0f;
 float screenWidth = 800.0f;
@@ -80,6 +84,11 @@ void initialise()
 	cam1->setTarget(glm::vec3(0.0f, 0.0f, 0.0f));
 	cam1->setPositon(glm::vec3(5.0f, 2.0f, 5.0f));
 	//===========================================================
+	//IntroCamera
+	introCam = new target_camera();
+	introCam->setProjection(glm::degrees(glm::quarter_pi<float>()), screenWidth/screenHeight, 0.1f, 10000.0f);
+	introCam->setTarget(glm::vec3(0.5f, 0.5f, 0.0f));
+	introCam->setPositon(glm::vec3(0.43227, 1.21953, -6.0));
 
 	//First personCamera=====================================
 	cam = new first_person_camera();
@@ -118,17 +127,28 @@ void initialise()
 	if (!post_eff1->create())
 		exit(EXIT_FAILURE);
 
-	lastKeyPress = '1';
+	effect* post_eff2 = new effect();
+	if(!post_eff2->addShader("post_process.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);
+	if(!post_eff2->addShader("Negative.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
+	if (!post_eff2->create())
+		exit(EXIT_FAILURE);
 
+	lastKeyPress = '3';
+	selectedPostProc = 'O';
 	
 	scene1 = loadScene("TableAndChairs.json");
-	scene2 = loadScene("scene.json");
-	scene3 = loadScene("instructions.json");
+	//scene2 = loadScene("scene.json");
+	scene2 = loadScene("ParkBench.json");
+	scene3 = loadScene("Insturctions.json");
 	
 	post_proc1 = new post_process(post_eff);
 	post_proc1->create(screenWidth, screenHeight);
 	post_proc2 = new post_process(post_eff1);
 	post_proc2->create(screenWidth, screenHeight);
+	post_proc3 = new post_process(post_eff2);
+	post_proc3->create(screenWidth, screenHeight);
 
 	//post_proc = post_proc1;
 	
@@ -179,9 +199,9 @@ void moveFPSCam(float deltaTime, float speed)
 		cam->rotate(-glm::pi<float>() / 4.0f * deltaTime, 0.0f);
 	if (glfwGetKey('Q'))
 		cam->rotate(glm::pi<float>() / 4.0f * deltaTime, 0.0f);
-	if (glfwGetKey(GLFW_KEY_LCTRL))
-		cam->move(-glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
 	if (glfwGetKey(GLFW_KEY_LSHIFT))
+		cam->move(-glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
+	if (glfwGetKey(GLFW_KEY_SPACE))
 		cam->move(glm::vec3(0.0f, speed, 0.0f) * (float)deltaTime);
 }
 
@@ -220,18 +240,18 @@ void renderScene2()
 	post_proc->beginRender(true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-	sb->render(cam);
+	sb->render(currentCam);
 	
 	eff.begin();
 	scene->light.bind(&eff);
 	scene->dynamic.bind(&eff);
 	
-	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
+	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(currentCam->getPosition()));
 	CHECK_GL_ERROR
 	
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
-		render(&eff, cam->getView(), cam->getProjecion(), iter->second);
+		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
 
 	post_proc->endRender();
 	eff.end();
@@ -292,13 +312,13 @@ void renderFireworksScene()
 	scene->dynamic.bind(&eff);
 	scene->light.bind(&eff);
 
-	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(cam->getPosition()));
+	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(currentCam->getPosition()));
 
 	drawFireworks();
 	
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
-		render(&eff, cam->getView(), cam->getProjecion(), iter->second);
+		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
 		
 	eff.end();
 	glUseProgram(0);
@@ -308,9 +328,31 @@ void renderFireworksScene()
 	glAccum(GL_ACCUM, 0.2f); //0.2f
 }
 
+void renderSceneIntro()
+{	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+	eff.begin();
+	scene->light.bind(&eff);
+	scene->dynamic.bind(&eff);
+	
+	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(currentCam->getPosition()));
+	CHECK_GL_ERROR
+	
+	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
+	for (; iter != scene->objects.end(); ++iter)
+		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
+
+	eff.end();
+	glUseProgram(0);
+	CHECK_GL_ERROR
+	glfwSwapBuffers();
+}
+
 void update(double deltaTime)
 {
 	cam->update(deltaTime);
+	introCam->update(deltaTime);
 	moveFPSCam(deltaTime, 1.0f);
 
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);	
@@ -318,21 +360,53 @@ void update(double deltaTime)
 	if (lastKeyPress == '1') //render scene 1
 	{
 		scene = scene1;
+		currentCam = cam;
 		renderFireworksScene();
+		
 	}
 	
 	if (lastKeyPress == '2') // render scene 2
 	{
+		
 		scene = scene2;
 		sb = sb2;
-		post_proc = post_proc2;
+		
+		currentCam = cam;
+		
+
+		if (selectedPostProc == 'I')
+			post_proc = post_proc1;
+		if (selectedPostProc == 'O')
+			post_proc = post_proc2;
+		if (selectedPostProc == 'P')
+			post_proc = post_proc3;
+
 		renderScene2();
+
+		if (glfwGetKey('I'))
+			selectedPostProc = 'I';
+		if (glfwGetKey('O'))
+			selectedPostProc = 'O';
+		if (glfwGetKey('P'))
+			selectedPostProc = 'P';
+	}
+	
+	if (lastKeyPress == '3') // render scene 2
+	{
+		sb = sb2;
+		post_proc = post_proc2;
+		scene = scene3;
+		currentCam = introCam;
+		renderSceneIntro();	
+		std::cout<<cam->getPosition().x<<" , "<<cam->getPosition().y<<" , "<<cam->getPosition().z;
 	}
 
 	if (glfwGetKey('1'))
 		lastKeyPress = '1';
 	if (glfwGetKey('2'))
 		lastKeyPress = '2';
+	if (glfwGetKey('3'))
+		lastKeyPress = '3';
 }
 
 void cleanup()
