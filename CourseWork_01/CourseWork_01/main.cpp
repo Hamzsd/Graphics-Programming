@@ -59,8 +59,10 @@ post_process* post_proc1;
 post_process* post_proc2;
 post_process* post_proc3;
 
-float screenHeight = 600.0f;
-float screenWidth = 800.0f;
+//float screenHeight = 600.0f;
+//float screenWidth = 800.0f;
+float screenHeight = 1080.0f;
+float screenWidth = 1920.0f;
 
 void initialise()
 {
