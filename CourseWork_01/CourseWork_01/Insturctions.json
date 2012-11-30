@@ -6,6 +6,10 @@
 			"shape": "plane",
 			"width": 20,
 			"depth": 20
+		},
+		"cube":
+		{
+			"shape": "cube"
 		}
 	},
 	"textures":
@@ -28,12 +32,12 @@
 	{
 		"plane":
 		{
-			"geometry": "plane",
+			"geometry": "cube",
 			"material": "mat_001",
 			"transform":
 			{
 				"position": [0.0, 0.0, 0.0],
-				"rotation": [1.5, 0.0, 3.0],
+				"rotation": [0.0, 0.0, 3.15],
 				"scale": [1.0, 1.0, 1.0]
 			}
 		}

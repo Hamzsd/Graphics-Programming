@@ -52,17 +52,25 @@ char selectedPostProc;
 target_camera* cam1;
 target_camera* introCam;
 first_person_camera* cam;
+first_person_camera* fireworkCam;
+first_person_camera* scene2Cam;
 camera* currentCam;
 
 post_process* post_proc;
 post_process* post_proc1;
 post_process* post_proc2;
 post_process* post_proc3;
+post_process* post_proc4;
 
 //float screenHeight = 600.0f;
 //float screenWidth = 800.0f;
 float screenHeight = 1080.0f;
 float screenWidth = 1920.0f;
+
+double lastTimeStamp;
+double nowTimeStamp;
+double nextTimeStamp;
+
 
 void initialise()
 {
@@ -93,10 +101,18 @@ void initialise()
 	introCam->setPositon(glm::vec3(0.43227, 1.21953, -6.0));
 
 	//First personCamera=====================================
-	cam = new first_person_camera();
-	cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	cam->setPositon(glm::vec3(0.0f, 2.0f, -5.0f));
+	fireworkCam = new first_person_camera();
+	fireworkCam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
+	fireworkCam->setPositon(glm::vec3(1.73964, 4.51647, -23.0497));
+	fireworkCam->rotate(0.0f, 0.0f);
 	//=============================================================
+
+	//Scene2 camera==============================================================
+	scene2Cam = new first_person_camera();
+	scene2Cam->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
+	scene2Cam->setPositon(glm::vec3(-4.23435, 1.73269, -8.24032));
+	scene2Cam->rotate(0.65f, 0.0f);
+	//===============================================================================
 
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
@@ -137,6 +153,14 @@ void initialise()
 	if (!post_eff2->create())
 		exit(EXIT_FAILURE);
 
+	effect* post_eff3 = new effect();
+	if(!post_eff3->addShader("post_process.vert", GL_VERTEX_SHADER))
+		exit(EXIT_FAILURE);
+	if(!post_eff3->addShader("NoPostProc.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
+	if (!post_eff3->create())
+		exit(EXIT_FAILURE);
+
 	lastKeyPress = '3';
 	selectedPostProc = 'O';
 	
@@ -151,6 +175,8 @@ void initialise()
 	post_proc2->create(screenWidth, screenHeight);
 	post_proc3 = new post_process(post_eff2);
 	post_proc3->create(screenWidth, screenHeight);
+	post_proc4 = new post_process(post_eff3);
+	post_proc4->create(screenWidth, screenHeight);
 
 	//post_proc = post_proc1;
 	
@@ -188,6 +214,7 @@ void initialise()
 
 void moveFPSCam(float deltaTime, float speed)
 {
+	cam = (first_person_camera*)currentCam;
 	//fps cam controls
 	if (glfwGetKey('W'))
 		cam->move(glm::vec3(0.0f, 0.0f, speed) * (float)deltaTime);
@@ -304,6 +331,7 @@ void drawFireworks()
 
 void renderFireworksScene()
 {
+	post_proc->beginRender(true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glAccum(GL_RETURN, 0.99f);
@@ -321,8 +349,12 @@ void renderFireworksScene()
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
 		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
-		
+	
+	post_proc->endRender();	
 	eff.end();
+
+	post_proc->render(true);
+
 	glUseProgram(0);
 	CHECK_GL_ERROR
 	glfwSwapBuffers();
@@ -351,47 +383,66 @@ void renderSceneIntro()
 	glfwSwapBuffers();
 }
 
+void opticalIllusion(double tim)
+{
+	if (tim <= nextTimeStamp)
+		{
+			post_proc = post_proc3;
+			
+		}
+		else if (tim > nextTimeStamp)
+		{
+			if (selectedPostProc == 'I')
+				post_proc = post_proc1;
+			if (selectedPostProc == 'O')
+				post_proc = post_proc2;
+			if (selectedPostProc == 'P')
+				post_proc = post_proc3;
+			if (selectedPostProc == 'U')
+				post_proc = post_proc4;
+
+			if (glfwGetKey('I'))
+				selectedPostProc = 'I';
+			if (glfwGetKey('O'))
+				selectedPostProc = 'O';
+			if (glfwGetKey('P'))
+				selectedPostProc = 'P';
+			if (glfwGetKey('U'))
+				selectedPostProc = 'U';
+		}
+}
+
 void update(double deltaTime)
 {
-	cam->update(deltaTime);
-	introCam->update(deltaTime);
-	moveFPSCam(deltaTime, 1.0f);
+	
+	//introCam->update(deltaTime);
+	
 
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);	
 
 	if (lastKeyPress == '1') //render scene 1
 	{
+		nowTimeStamp = glfwGetTime();
 		scene = scene1;
-		currentCam = cam;
+		currentCam = fireworkCam;
+		opticalIllusion(nowTimeStamp);
 		renderFireworksScene();
+		moveFPSCam(deltaTime, 1.0f);
+		std::cout<<" x pos "<< fireworkCam->getPosition().x <<" y pos "<< fireworkCam->getPosition().y <<" z pos "<< fireworkCam->getPosition().z<<"\n";
 		
 	}
 	
 	if (lastKeyPress == '2') // render scene 2
 	{
-		
+		nowTimeStamp = glfwGetTime();
 		scene = scene2;
 		sb = sb2;
-		
-		currentCam = cam;
-		
-
-		if (selectedPostProc == 'I')
-			post_proc = post_proc1;
-		if (selectedPostProc == 'O')
-			post_proc = post_proc2;
-		if (selectedPostProc == 'P')
-			post_proc = post_proc3;
-
+		currentCam = scene2Cam;
+		moveFPSCam(deltaTime, 1.0f);
+		opticalIllusion(nowTimeStamp);
 		renderScene2();
-
-		if (glfwGetKey('I'))
-			selectedPostProc = 'I';
-		if (glfwGetKey('O'))
-			selectedPostProc = 'O';
-		if (glfwGetKey('P'))
-			selectedPostProc = 'P';
-	}
+		std::cout<<" x pos "<< scene2Cam->getPosition().x <<" y pos "<< scene2Cam->getPosition().y <<" z pos "<< scene2Cam->getPosition().z<<"\n";
+	}	
 	
 	if (lastKeyPress == '3') // render scene 2
 	{
@@ -400,13 +451,24 @@ void update(double deltaTime)
 		scene = scene3;
 		currentCam = introCam;
 		renderSceneIntro();	
-		std::cout<<cam->getPosition().x<<" , "<<cam->getPosition().y<<" , "<<cam->getPosition().z;
+		//std::cout<<cam->getPosition().x<<" , "<<cam->getPosition().y<<" , "<<cam->getPosition().z;
 	}
 
+	currentCam->update(deltaTime);
+
 	if (glfwGetKey('1'))
+	{
 		lastKeyPress = '1';
+		lastTimeStamp = glfwGetTime();
+		nextTimeStamp = lastTimeStamp + 20;
+	}
 	if (glfwGetKey('2'))
+	{
 		lastKeyPress = '2';
+		lastTimeStamp = glfwGetTime();
+		nextTimeStamp = lastTimeStamp + 20;
+		selectedPostProc = 'O';
+	}
 	if (glfwGetKey('3'))
 		lastKeyPress = '3';
 }

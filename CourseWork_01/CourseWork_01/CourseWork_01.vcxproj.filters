@@ -185,6 +185,7 @@
     <None Include="Insturctions.json" />
     <None Include="ParkBench.json" />
     <None Include="Negative.frag" />
+    <None Include="NoPostProc.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">

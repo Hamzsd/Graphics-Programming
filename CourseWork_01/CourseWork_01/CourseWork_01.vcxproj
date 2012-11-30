@@ -101,6 +101,7 @@
     <None Include="multi_light.frag" />
     <None Include="multi_light.vert" />
     <None Include="Negative.frag" />
+    <None Include="NoPostProc.frag" />
     <None Include="OpenGL.props" />
     <None Include="ParkBench.json" />
     <None Include="point_light.frag" />
