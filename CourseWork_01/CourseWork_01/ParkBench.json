@@ -32,8 +32,9 @@
 	{
 		"grass" : "grass.jpg",
 		"brick" : "brick.jpg",
-		"tree" : "brick2.jpg",
+		"seat" : "seatTex.jpg",
 		"trunk" : "trunk.jpg",
+		"chair" : "chair.jpg",
 		"star" : "brick4.jpg"
 	},
 	"materials":
@@ -54,25 +55,25 @@
 			"diffuse": [0.8, 0.5, 0.3, 1.0],
 			"specular": [1.0, 0.75, 0.5, 1.0],
 			"shininess": 1.0,
-			"texture": "brick"
+			"texture": "seat"
 		},
 		"mat_003":
 		{
-			"emmisive": [0.0, 0.0, 0.0, 1.0],
-			"ambient": [0.0, 1.0, 1.0, 1.0],
-			"diffuse": [0.0, 1.0, 1.0, 1.0],
-			"specular": [0.0, 1.0, 1.0, 1.0],
+			"emmisive": [1.0, 1.0, 1.0, 1.0],
+			"ambient": [1.0, 1.0, 1.0, 1.0],
+			"diffuse": [1.0, 1.0, 1.0, 1.0],
+			"specular": [1.0, 1.0, 1.0, 1.0],
 			"shininess": 2.0,
 			"texture": "star"
 		},
 		"mat_004":
 		{
 			"emmisive": [0.0, 0.0, 0.0, 1.0],
-			"ambient": [3.4, 1.7, 0.4, 1.0],
-			"diffuse": [3.4, 1.7, 0.4, 1.0],
-			"specular": [3.4, 1.7, 0.4, 1.0],
+			"ambient": [0.0, 0.0, 0.0, 1.0],
+			"diffuse": [0.0, 0.0, 0.0, 1.0],
+			"specular": [0.0, 0.0, 0.0, 1.0],
 			"shininess": 2.0,
-			"texture": "tree"
+			"texture": "chair"
 		}
 	},
 	"objects":
@@ -146,7 +147,7 @@
 		"lightPole":
 		{
 			"geometry": "cylinder",
-			"material": "mat_002",
+			"material": "mat_004",
 			"transform":
 			{
 				"position": [-2.5, 0.0, -1.5],
@@ -157,7 +158,7 @@
 		"light":
 		{
 			"geometry": "sphere",
-			"material": "mat_002",
+			"material": "mat_003",
 			"transform":
 			{
 				"position": [-2.5, 3.8, -1.5],
@@ -173,5 +174,20 @@
 		"specular" : [0.8, 0.9, 1.0, 1.0],
 		"lightDir" : [1.0, 0.0, 0.0, 1.0]
 	},
-	"dynamic_lighting":	[""]
+	"dynamic_lighting":
+	[
+		{
+			"spot":
+			{
+				"ambient": [1.0, 1.0, 1.0, 1.0],
+				"diffuse": [0.5, 0.5, 0.5, 1.0],
+				"specular": [1.0, 1.0, 1.0, 1.0],
+				"lightPos": [-2.5, 3.8, -1.5, 1.0],
+				"attenuation": [0.05, 0.001, 0.001, 1.0],
+				"lightDir": [0.0, -1.0, 0.0, 1.0],
+				"power": 1.0,
+				"dist": 1000.0
+			}
+		}
+	]
 }

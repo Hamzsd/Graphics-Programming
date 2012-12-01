@@ -11,6 +11,6 @@ out vec4 colour;
 void main()
 {
 	vec4 col = texture2D(tex, texCoordOut);
-	colour = (1.05 - col);
+	colour =  1.0 - col;
 	colour.a = 1.0;
 }
