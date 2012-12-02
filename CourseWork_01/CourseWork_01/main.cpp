@@ -125,8 +125,8 @@ void initialise()
 	//Scene2 camera==============================================================
 	scene2Cam1 = new first_person_camera();
 	scene2Cam1->setProjection(glm::pi<float>() / 4.0f, screenWidth/screenHeight, 0.1f, 10000.0f);
-	scene2Cam1->setPositon(glm::vec3(4.23435, 1.73269, 8.24032));
-	scene2Cam1->rotate(1.0f, 0.0f);
+	scene2Cam1->setPositon(glm::vec3(4.23435, 1.73269, 15.24032));
+	scene2Cam1->rotate(-2.8f, 0.0f);
 	//===============================================================================
 
 	if (!eff.addShader("lit_textured.vert", GL_VERTEX_SHADER))
