@@ -50,7 +50,6 @@ char lastKeyPress;
 char selectedPostProc;
 char lastCam;
 
-
 target_camera* introCam;
 first_person_camera* cam;
 first_person_camera* fireworkCam;
@@ -77,7 +76,6 @@ double nextTimeStamp;
 
 glm::vec3 lightAim(-2.5f, 0.0f, -1.5f);
 
-
 void initialise()
 {
 	srand(time(NULL));
@@ -94,8 +92,6 @@ void initialise()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	
-	
 	//IntroCamera
 	introCam = new target_camera();
 	introCam->setProjection(glm::degrees(glm::quarter_pi<float>()), screenWidth/screenHeight, 0.1f, 10000.0f);
@@ -141,7 +137,6 @@ void initialise()
 		exit(EXIT_FAILURE);
 	if (!eff.create())
 		exit(EXIT_FAILURE);
-
 
 	effect* post_eff = new effect();
 	if(!post_eff->addShader("post_process.vert", GL_VERTEX_SHADER))
@@ -191,6 +186,16 @@ void initialise()
 	//scene2 = loadScene("scene.json");
 	scene2 = loadScene("ParkBench.json");
 	scene3 = loadScene("Insturctions.json");
+
+	geometry* geom = createTerrain(scene1->textures["heightmap"]);
+	scene1->geometry["terrain"] = geom;
+
+	render_object* obj = new render_object();
+	obj->geometry = geom;
+	obj->material = scene1->material["mat_001"];
+	obj->transform.scale = (glm::vec3(1.0, 8.0, 1.0));
+	obj->transform.position = (glm::vec3(0.0, -3.0, 0.0));
+	scene1->objects["terrain"] = obj;
 	
 	post_proc1 = new post_process(post_eff);
 	post_proc1->create(screenWidth, screenHeight);
@@ -232,9 +237,6 @@ void initialise()
 
 	sb2 = new skybox(cm1);
 	sb2->create();
-	
-	//sb = sb1;
-
 }
 
 void moveFPSCam(float deltaTime, float speed)
@@ -290,7 +292,6 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 
 void renderScene2()
 {
-
 	post_proc->beginRender(true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
@@ -307,7 +308,6 @@ void renderScene2()
 	scene->light.bind(&eff);
 	scene->dynamic.setSpot(0, spot);
 	scene->dynamic.bind(&eff);
-	
 	
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(currentCam->getPosition()));
 	CHECK_GL_ERROR
@@ -370,7 +370,7 @@ void renderFireworksScene()
 
 	glAccum(GL_RETURN, 0.99f);
 	glClear(GL_ACCUM_BUFFER_BIT);
-	
+
 	eff.begin();
 
 	scene->dynamic.bind(&eff);
@@ -454,8 +454,6 @@ void update(double deltaTime)
 {
 	
 	//introCam->update(deltaTime);
-	
-
 	running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);	
 
 	if (lastKeyPress == '1') //render scene 1
@@ -587,7 +585,3 @@ int main()
 	exit(EXIT_SUCCESS);
 
 }
-
-
-
-

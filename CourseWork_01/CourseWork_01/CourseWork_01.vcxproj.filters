@@ -16,6 +16,9 @@
     <Filter Include="Shaders and JSON files">
       <UniqueIdentifier>{07001742-4a94-40e6-9fd0-4bde6ceb4826}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unused files">
+      <UniqueIdentifier>{e625c5f9-077a-4d6f-b969-de5f30f42469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="alpha3.jpg">
@@ -93,22 +96,7 @@
     <None Include="zpos.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="blend.frag">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="texture.vert">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="enviroemtn_map.frag">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="enviroment_map.vert">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
     <None Include="Greyscale.frag">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="lighting.frag">
       <Filter>Shaders and JSON files</Filter>
     </None>
     <None Include="lit_blended.frag">
@@ -123,15 +111,6 @@
     <None Include="lit_textured.vert">
       <Filter>Shaders and JSON files</Filter>
     </None>
-    <None Include="multi_light.frag">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="multi_light.vert">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="OpenGL.props">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
     <None Include="point_light.frag">
       <Filter>Shaders and JSON files</Filter>
     </None>
@@ -139,12 +118,6 @@
       <Filter>Shaders and JSON files</Filter>
     </None>
     <None Include="post_process.vert">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="scene.json">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="scene2.json">
       <Filter>Shaders and JSON files</Filter>
     </None>
     <None Include="skybox.frag">
@@ -156,37 +129,81 @@
     <None Include="spot_light.frag">
       <Filter>Shaders and JSON files</Filter>
     </None>
-    <None Include="StackOfCubes.json">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="star.tga">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="starfield.frag">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
-    <None Include="starfield.vert">
-      <Filter>Shaders and JSON files</Filter>
-    </None>
     <None Include="TableAndChairs.json">
       <Filter>Shaders and JSON files</Filter>
     </None>
+    <None Include="blend.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="enviroemtn_map.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="enviroment_map.vert">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="lighting.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="multi_light.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="multi_light.vert">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="OpenGL.props">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="scene.json">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="scene2.json">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="StackOfCubes.json">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="star.tga">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="starfield.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="starfield.vert">
+      <Filter>Unused files</Filter>
+    </None>
     <None Include="tarnished.frag">
-      <Filter>Shaders and JSON files</Filter>
+      <Filter>Unused files</Filter>
     </None>
     <None Include="tarnished.vert">
-      <Filter>Shaders and JSON files</Filter>
+      <Filter>Unused files</Filter>
     </None>
     <None Include="texture.frag">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="texture.vert">
+      <Filter>Unused files</Filter>
+    </None>
+    <None Include="CourseWork.json">
       <Filter>Shaders and JSON files</Filter>
     </None>
-    <None Include="CourseWork.json" />
-    <None Include="Sepia.frag" />
-    <None Include="Insturctions.json" />
-    <None Include="ParkBench.json" />
-    <None Include="Negative.frag" />
-    <None Include="NoPostProc.frag" />
-    <None Include="NightPostProc.frag" />
+    <None Include="Sepia.frag">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
+    <None Include="Insturctions.json">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
+    <None Include="Negative.frag">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
+    <None Include="NightPostProc.frag">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
+    <None Include="NoPostProc.frag">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
+    <None Include="ParkBench.json">
+      <Filter>Shaders and JSON files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
