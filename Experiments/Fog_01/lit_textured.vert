@@ -12,6 +12,7 @@ layout (location = 2) in vec2 texCoordIn;
 out vec3 transformedPosition;
 smooth out vec3 transformedNormal;
 out vec2 texCoordOut;
+smooth out vec4 vEyeSpacePos;
 
 void main()
 {
@@ -19,4 +20,6 @@ void main()
 	transformedPosition = (model * vec4(position, 1.0)).xyz;
 	transformedNormal = normalize((modelInverseTranspose * vec4(normal, 0.0)).xyz);
 	texCoordOut = (scale * vec4(texCoordIn, 0.0, 0.0)).xy;
+
+	vEyeSpacePos = gl_Position;
 }

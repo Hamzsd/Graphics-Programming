@@ -74,6 +74,15 @@ double lastTimeStamp;
 double nowTimeStamp;
 double nextTimeStamp;
 
+namespace FogParameters
+{
+	float fDensity = 0.04f;
+	float fStart = 10.0f;
+	float fEnd = 75.0f;
+	glm::vec4 vFogColor = glm::vec4(0.7f, 0.7f, 0.7f, 1.0f);
+	int iFogEquation = 0;
+};
+
 glm::vec3 lightAim(-2.5f, 0.0f, -1.5f);
 
 void initialise()
@@ -133,10 +142,12 @@ void initialise()
 		exit(EXIT_FAILURE);
 	if (!eff.addShader("spot_light.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
+	if (!eff.addShader("Fog.frag", GL_FRAGMENT_SHADER))
+		exit(EXIT_FAILURE);
 	if (!eff.addShader("lit_textured.frag", GL_FRAGMENT_SHADER))
 		exit(EXIT_FAILURE);
 	if (!eff.create())
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);	
 
 	effect* post_eff = new effect();
 	if(!post_eff->addShader("post_process.vert", GL_VERTEX_SHADER))
@@ -178,7 +189,7 @@ void initialise()
 	if (!post_eff4->create())
 		exit(EXIT_FAILURE);
 
-	lastKeyPress = '3';
+	lastKeyPress = '2';
 	selectedPostProc = 'O';
 	lastCam = '9';
 	
@@ -271,6 +282,24 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 	CHECK_GL_ERROR
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f), object->transform.scale);
 	glUniformMatrix4fv(eff->getUniformIndex("scale"), 1, GL_FALSE, glm::value_ptr(scale));
+	
+	//Fog Params setup
+	//set up uniform variables
+	//effect e = *eff;
+	//e.setUniform("fogParams.iEquation", FogParameters::iFogEquation);
+	//e.setUniform("fogParams.vFogColor", FogParameters::vFogColor);
+
+	//if (FogParameters::iFogEquation == 0)
+	//{
+	//	e.setUniform("fogParams.fStart", FogParameters::fStart);
+	//	e.setUniform("fogParams.fEnd", FogParameters::fEnd);
+	//}
+	//else
+	//	e.setUniform("fogParams.fDensity", FogParameters::fDensity);
+	//
+	//eff = &e;
+	
+	
 	CHECK_GL_ERROR
 	object->material->bind(eff);
 
@@ -288,7 +317,19 @@ void render(const effect* eff, const glm::mat4 view, const glm::mat4& projection
 	CHECK_GL_ERROR
 }
 
+void renderFog(effect eff)
+{
+	eff.setUniform("fogParams.iEquation", FogParameters::iFogEquation);
+	eff.setUniform("fogParams.vFogColor", FogParameters::vFogColor);
 
+	if (FogParameters::iFogEquation == 0)
+	{
+		eff.setUniform("fogParams.fStart", FogParameters::fStart);
+		eff.setUniform("fogParams.fEnd", FogParameters::fEnd);
+	}
+	else
+		eff.setUniform("fogParams.fDensity", FogParameters::fDensity);
+}
 
 void renderScene2()
 {
@@ -399,17 +440,24 @@ void renderFireworksScene()
 void renderSceneIntro()
 {	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+	
+	//renderFog(eff);
+	
 	eff.begin();
 	scene->light.bind(&eff);
 	scene->dynamic.bind(&eff);
 	
 	glUniform3fv(eff.getUniformIndex("eyePos"), 1, glm::value_ptr(currentCam->getPosition()));
 	CHECK_GL_ERROR
+
+	
+	//renderFog(eff);
 	
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
 		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
+
+	renderFog(eff);
 
 	eff.end();
 	glUseProgram(0);

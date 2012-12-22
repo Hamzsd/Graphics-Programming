@@ -51,6 +51,16 @@ struct SpotLight
 };
 #endif
 
+uniform struct FogParameters
+{
+	vec4 vFogColor; //Fog Colour
+	float fStart; //This is only for linear fog
+	float fEnd; //This is only for linear fog
+	float fDensity; // for exp and exp2 equation 
+
+	int iEquation; // 0 = linear, 1 = exp, 2 = exp2
+} fogParams;
+
 uniform DynamicLights
 {
 	PointLight points[MAX_LIGHTS];
@@ -65,6 +75,7 @@ uniform vec3 eyePos;
 in vec3 transformedPosition;
 in vec3 transformedNormal;
 in vec2 texCoordOut;
+in vec4 vEyeSpacePos;
 
 out vec4 colour;
 
@@ -73,6 +84,8 @@ vec4 calculateLighting(in MaterialData material, in vec3 toEye, in vec3 transfor
 vec4 calculatePoint(in MaterialData material, in vec3 toEye, in PointLight point, in vec3 transformedPosition, in vec3 transformedNormal);
 
 vec4 calculateSpot(in MaterialData material, in vec3 toEye, in SpotLight spot, in vec3 transformedPosition, in vec3 transformedNormal);
+
+float getFogFactor(FogParameters params, float fFogCoord);
 
 void main()
 {
@@ -89,17 +102,10 @@ void main()
 	col *= texture2D(tex, texCoordOut);
 
 	col += material.emissive;
+
+	//Add fog
+	float fFogCoord = abs(vEyeSpacePos.z/vEyeSpacePos.w);
+	colour = mix(col, fogParams.vFogColor, getFogFactor(fogParams, fFogCoord));
 	
-	colour = col;
-
-	const float LOG2 = 1.442695;
-	float s = gl_FragCoord.z / gl_FragCoord.w;
-	float fogFactor = exp2( -gl_Fog.density * 
-								gl_Fog.density *
-								z * 
-								z *
-								LOG2);
-	fogFactor = clamp(fogFactor, 0.0, 1.0);
-
-	glFragColour = mix(gl_Fog.color, finalColour, fogFactor);
+	//colour = col;
 }
