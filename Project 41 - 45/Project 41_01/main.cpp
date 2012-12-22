@@ -33,6 +33,12 @@ float lightAngle = 0.0f;
 GLuint vertexBuffer;
 GLuint vao;
 
+bool gp;
+GLuint filter;
+GLuint fogMode[] = { GL_EXP, GL_EXP2, GL_LINEAR };
+GLuint fogfilter = 0;
+GLfloat fogColour[4] = {0.5, 0.5, 0.5f, 1.0f};
+
 void initialise()
 {
 	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
@@ -59,7 +65,15 @@ void initialise()
 	diffuseLightUniform = glGetUniformLocation(program, "diffuseLight");
 	lightDirUniform = glGetUniformLocation(program, "lightDir");
 
-	object.geometry = createBox();		
+	object.geometry = createBox();	
+
+	glFogi(GL_FOG_MODE, fogMode[fogfilter]);
+	glFogfv(GL_FOG_COLOR, fogColour);
+	glFogf(GL_FOG_DENSITY, 0.35f);
+	glHint(GL_FOG_HINT, GL_DONT_CARE);
+	glFogf(GL_FOG_START, 1.0f);
+	glFogf(GL_FOG_END, 5.0f);
+	glEnable(GL_FOG);
 }
 
 void update(double deltaTime)
