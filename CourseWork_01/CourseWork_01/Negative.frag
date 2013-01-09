@@ -2,8 +2,6 @@
 
 uniform sampler2D tex;
 
-const vec3 intensity = vec3(0.299, 0.587, 0.184);
-
 in vec2 texCoordOut;
 
 out vec4 colour;

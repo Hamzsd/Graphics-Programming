@@ -51,16 +51,6 @@ struct SpotLight
 };
 #endif
 
-uniform struct FogParameters
-{
-	vec4 vFogColor; //Fog Colour
-	float fStart; //This is only for linear fog
-	float fEnd; //This is only for linear fog
-	float fDensity; // for exp and exp2 equation 
-
-	int iEquation; // 0 = linear, 1 = exp, 2 = exp2
-} fogParams;
-
 uniform DynamicLights
 {
 	PointLight points[MAX_LIGHTS];
@@ -85,8 +75,6 @@ vec4 calculatePoint(in MaterialData material, in vec3 toEye, in PointLight point
 
 vec4 calculateSpot(in MaterialData material, in vec3 toEye, in SpotLight spot, in vec3 transformedPosition, in vec3 transformedNormal);
 
-float getFogFactor(FogParameters params, float fFogCoord);
-
 void main()
 {
 	vec3 toEye = normalize(eyePos - transformedPosition);
@@ -104,8 +92,16 @@ void main()
 	col += material.emissive;
 
 	//Add fog
-	float fFogCoord = abs(vEyeSpacePos.z/vEyeSpacePos.w);
-	colour = mix(col, fogParams.vFogColor, getFogFactor(fogParams, fFogCoord));
+	//float fFogCoord = abs(vEyeSpacePos.z/vEyeSpacePos.w);
+	
+	float fFogCoord = eyePos.z;
+	//float fFogCoord = toEye.z;
+	vec4 vFogColour = vec4(0.7, 0.7, 0.7, 1.0);
+	float fDensity = 0.05;
+	float fogFactor = exp(-pow(fDensity * fFogCoord, 2.0));
+	fogFactor = 1.0-clamp(fogFactor, 0.0, 1.0);
+
+	colour = mix(col, vFogColour, fogFactor);
 	
 	//colour = col;
 }

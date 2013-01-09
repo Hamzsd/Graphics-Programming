@@ -80,8 +80,7 @@ void Firework::move()
 		if (y[0] > (rnd))
 		{
 			for (int i = 0; i < FIREWORK_PARTICLES; ++i)
-			{
-										
+			{					
 				xSpeed[i]  = ((rand() / (float)RAND_MAX) * 8);
 				ySpeed[i] = ((rand() / (float)RAND_MAX) * 1);
 				zSpeed[i]  = ((rand() / (float)RAND_MAX) * 1);
@@ -110,26 +109,26 @@ void Firework::move()
 void Firework::explode()
 {
 
-	for (int loop = 0; loop < FIREWORK_PARTICLES; loop++)
+	for (int i = 0; i < FIREWORK_PARTICLES; i++)
 	{ 
 		// Move the particle
-		x[loop] += xSpeed[loop];
-		y[loop] += ySpeed[loop];
-		z[loop] += zSpeed[loop];
+		x[i] += xSpeed[i];
+		y[i] += ySpeed[i];
+		z[i] += zSpeed[i];
  
 		// Apply gravity to the particle's speed
-		ySpeed[loop] += -Firework::GRAVITY;
+		ySpeed[i] += -Firework::GRAVITY;
 	}
 
 	//fade out particles
 	if (alpha > 0.0f)
 	{
 		alpha -= 0.01f;
-		for (int loop = 0; loop < FIREWORK_PARTICLES; loop++)
+		for (int i = 0; i < FIREWORK_PARTICLES; i++)
 		{
-			xSpeed[loop] -= 0.001f;
-			ySpeed[loop] -= 0.001f;
-			zSpeed[loop] -= 0.001f;
+			xSpeed[i] -= 0.001f;
+			ySpeed[i] -= 0.001f;
+			zSpeed[i] -= 0.001f;
 		}
 	}
 	else
