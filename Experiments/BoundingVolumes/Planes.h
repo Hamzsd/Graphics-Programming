@@ -25,7 +25,7 @@ struct frus
 
 	void extractPlanes(glm::mat4 model)
 	{
-		modelViewProjection = _cam->getProjecion() * _cam->getView() * model;
+		/*modelViewProjection = _cam->getProjecion() * _cam->getView() * model;
 
 		nearPlane = glm::vec4(modelViewProjection[3] + modelViewProjection[2], modelViewProjection[7] + modelViewProjection[6], 
 							  modelViewProjection[11] + modelViewProjection[10], modelViewProjection[15] + modelViewProjection[14]);
@@ -49,12 +49,12 @@ struct frus
 
 		leftPlane = glm::vec4(modelViewProjection[3] + modelViewProjection[0], modelViewProjection[7] + modelViewProjection[4], 
 							  modelViewProjection[11] + modelViewProjection[8], modelViewProjection[15] + modelViewProjection[12]);
-		leftPlane = glm::normalize(leftPlane);
+		leftPlane = glm::normalize(leftPlane);*/
 	}
 
-	bool checkPoint(glm::vec3 point, glm::mat4 model)
-	{
-		extractPlanes(model);
+	//bool checkPoint(glm::vec3 point, glm::mat4 model)
+	//{
+		/*extractPlanes(model);
 
 		glm::vec4 _point = glm::vec4(point, 1.0f);
 		
@@ -92,7 +92,7 @@ struct frus
 		}
 		std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" IS VALID"<<std::endl;
 		return true;
-
-	}
+*/
+//	}
 
 };

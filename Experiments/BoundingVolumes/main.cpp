@@ -162,7 +162,10 @@ void render()
 	
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
-		render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
+	{
+		//if (planes->checkPointValid(iter->second->transform.position, iter->second->transform.getTransformationMatrix()))
+			render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
+	}
 
 	eff.end();
 	glUseProgram(0);
@@ -232,19 +235,24 @@ void checkPoints()
 	//std::cout << "topTablePos.x  = " << point.x << std::endl;
 	//bool test = planes->checkPointValid(point, scene->objects["topTable"]->transform.getTransformationMatrix());
 	
-	std::vector<glm::vec3> verts = scene->objects["topTable"]->geometry->vertices;
-	glm::vec3 point;
-	for (std::vector<glm::vec3>::iterator iter = verts.begin(); iter != verts.end(); ++iter)
+	//std::vector<glm::vec3> verts = scene->objects["topTable"]->geometry->vertices;
+	//glm::vec3 point;
+	//for (std::vector<glm::vec3>::iterator iter = verts.begin(); iter != verts.end(); ++iter)
+	//{
+	//	point.x = iter->x; point.y = iter->y, point.z = iter->z;
+	//	if (planes->checkPointValid(point, scene->objects["topTable"]->transform.getTransformationMatrix()))
+	//	{
+	//		//std::cout <<"Point: " << point.x << " , "<< point.y << " , "<< point.z<<" Is valid"<<std::endl; 
+	//	}
+	//	else
+	//		int y = 1;
+	//		//std::cout <<"Point: " << point.x << " , "<< point.y << " , "<< point.z<<" NOT VALID"<<std::endl;
+	//}	
+
+	if (planes->checkPointValid(glm::vec3(20.0f, 100.0f, -50.0f), scene->objects["topTable"]->transform.getTransformationMatrix()))
 	{
-		point.x = iter->x; point.y = iter->y, point.z = iter->z;
-		if (planes->checkPointValid(point, scene->objects["topTable"]->transform.getTransformationMatrix()))
-		{
-			//std::cout <<"Point: " << point.x << " , "<< point.y << " , "<< point.z<<" Is valid"<<std::endl; 
-		}
-		else
-			int y = 1;
-			//std::cout <<"Point: " << point.x << " , "<< point.y << " , "<< point.z<<" NOT VALID"<<std::endl;
-	}	
+
+	}
 }
 
 void checkPoints2()
@@ -255,11 +263,11 @@ void checkPoints2()
 	
 }
 
-void checkPoints3()
-{
-	glm::vec3 point = glm::vec3(0.0f, 0.0f, 0.0f);
-	frustum->checkPoint(point, scene->objects["topTable"]->transform.getTransformationMatrix());
-}
+//void checkPoints3()
+//{
+//	glm::vec3 point = glm::vec3(0.0f, 0.0f, 0.0f);
+//	frustum->checkPoint(point, scene->objects["topTable"]->transform.getTransformationMatrix());
+//}
 
 int main()
 {
@@ -309,7 +317,7 @@ int main()
 		update(currentTimeStamp - prevTimeStamp);
 		
 		render();
-		checkPoints3();
+		//checkPoints();
 
 		prevTimeStamp = currentTimeStamp;
 	}

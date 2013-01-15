@@ -88,39 +88,39 @@ public:
 	bool checkPointValid(glm::vec3 point, glm::mat4 transformationMatrix)
 	{
 		//glm::vec4 _point = _cam->getView() * _cam->getProjecion() * transformationMatrix * glm::vec4(point, 1.0f);
+		glm::vec4 _point = _cam->getView() * _cam->getProjecion() * glm::vec4(point, 1.0f);
 		//_point = glm::vec4((_point.x / _point.w, _point.y / _point.w, _point.z / _point.w, _point.w / _point.w));
 
-		glm::vec4 _point = glm::vec4(point, 1.0f);
-		
+		//glm::vec4 _point = glm::vec4(point, 1.0f);
 
-		if (glm::dot(nearPlane, _point) < 0)
+		if (glm::dot(nearPlane, _point) <= 0)
 		{
 			float dot = glm::dot(nearPlane, _point);
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl; 
 			return false;
 		}
-		if (glm::dot(farPlane, _point) < 0)
+		if (glm::dot(farPlane, _point) <= 0)
 		{
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
 			return false;
 		}
-		if (glm::dot(leftPlane, _point) < 0)
+		if (glm::dot(leftPlane, _point) <= 0)
 		{
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl; 
 			return false;
 		}
-		if (glm::dot(rightPlane, _point) < 0)
+		if (glm::dot(rightPlane, _point) <= 0)
 		{
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
 			float rightAns = glm::dot(rightPlane, _point);
 			return false;
 		}
-		if (glm::dot(topPlane, _point) < 0)
+		if (glm::dot(topPlane, _point) <= 0)
 		{
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
 			return false;
 		}
-		if (glm::dot(bottomPlane, _point) < 0)
+		if (glm::dot(bottomPlane, _point) <= 0)
 		{
 			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
 			return false;
