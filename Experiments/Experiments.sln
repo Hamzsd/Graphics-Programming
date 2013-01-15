@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fog_01", "Fog_01\Fog_01.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fog_02", "Fog_02\Fog_02.vcxproj", "{67BD8AE6-C530-46C2-9CAE-3E77CE97BB89}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoundingVolumes", "BoundingVolumes\BoundingVolumes.vcxproj", "{DE661C72-6988-4031-A949-DA68B4602A7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{67BD8AE6-C530-46C2-9CAE-3E77CE97BB89}.Debug|Win32.Build.0 = Debug|Win32
 		{67BD8AE6-C530-46C2-9CAE-3E77CE97BB89}.Release|Win32.ActiveCfg = Release|Win32
 		{67BD8AE6-C530-46C2-9CAE-3E77CE97BB89}.Release|Win32.Build.0 = Release|Win32
+		{DE661C72-6988-4031-A949-DA68B4602A7D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE661C72-6988-4031-A949-DA68B4602A7D}.Debug|Win32.Build.0 = Debug|Win32
+		{DE661C72-6988-4031-A949-DA68B4602A7D}.Release|Win32.ActiveCfg = Release|Win32
+		{DE661C72-6988-4031-A949-DA68B4602A7D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
