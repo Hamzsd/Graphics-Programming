@@ -163,7 +163,7 @@ void render()
 	std::hash_map<std::string, render_object*>::const_iterator iter = scene->objects.begin();
 	for (; iter != scene->objects.end(); ++iter)
 	{
-		//if (planes->checkPointValid(iter->second->transform.position, iter->second->transform.getTransformationMatrix()))
+		if (planes->checkPointValid(iter->second->transform.position, iter->second->transform.getTransformationMatrix(), currentCam))
 			render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
 	}
 
@@ -249,10 +249,10 @@ void checkPoints()
 	//		//std::cout <<"Point: " << point.x << " , "<< point.y << " , "<< point.z<<" NOT VALID"<<std::endl;
 	//}	
 
-	if (planes->checkPointValid(glm::vec3(20.0f, 100.0f, -50.0f), scene->objects["topTable"]->transform.getTransformationMatrix()))
-	{
+	//if (planes->checkPointValid(glm::vec3(20.0f, 100.0f, -50.0f), scene->objects["topTable"]->transform.getTransformationMatrix()))
+	//{
 
-	}
+	//}
 }
 
 void checkPoints2()

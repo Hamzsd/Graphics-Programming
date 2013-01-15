@@ -85,9 +85,10 @@ public:
 	glm::vec4 getTopPlane() { return topPlane; }
 	glm::vec4 getBottomPlane() { return bottomPlane; } 	
 
-	bool checkPointValid(glm::vec3 point, glm::mat4 transformationMatrix)
+	bool checkPointValid(glm::vec3 point, glm::mat4 transformationMatrix, camera* cam)
 	{
 		//glm::vec4 _point = _cam->getView() * _cam->getProjecion() * transformationMatrix * glm::vec4(point, 1.0f);
+		setPlanes(cam);
 		glm::vec4 _point = _cam->getView() * _cam->getProjecion() * glm::vec4(point, 1.0f);
 		//_point = glm::vec4((_point.x / _point.w, _point.y / _point.w, _point.z / _point.w, _point.w / _point.w));
 
