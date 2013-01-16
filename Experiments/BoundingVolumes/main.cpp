@@ -164,6 +164,7 @@ void render()
 	for (; iter != scene->objects.end(); ++iter)
 	{
 		if (planes->checkPointValid(iter->second->transform.position, iter->second->transform.getTransformationMatrix(), currentCam))
+		//if (viewFrus->checkPoint(iter->second->transform.position))	
 			render(&eff, currentCam->getView(), currentCam->getProjecion(), iter->second);
 	}
 

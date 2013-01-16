@@ -32,7 +32,7 @@ public:
 	void setProjection(float fov, float aspect, float nearPlane, float farPlane)
 	{
 		_projection = glm::perspective(glm::degrees(fov), aspect, nearPlane, farPlane);
-		_fov = fov;
+		_fov = glm::degrees(fov);
 		_aspectRatio = aspect;
 		_nearPlane = nearPlane;
 		_farPlane = farPlane;

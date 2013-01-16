@@ -53,11 +53,6 @@ private:
 		frustum[0][2] = clip[11] - clip[ 8];
 		frustum[0][3] = clip[15] - clip[12];
 
-		//glm::vec4 nearPlane; 
-		/////glm::mat4 projMat;
-
-		//nearPlane = glm::vec4(projMat[3] - projMat[0], projMat[3] - projMat[0], projMat[3] - projMat[0], projMat[3] - projMat[0]);
-
 		 /* Normalize the result */
 		 t = sqrt( frustum[0][0] * frustum[0][0] + frustum[0][1] * frustum[0][1] + frustum[0][2] * frustum[0][2] );
 		 frustum[0][0] /= t;

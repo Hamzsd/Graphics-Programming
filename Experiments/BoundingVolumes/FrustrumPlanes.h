@@ -16,15 +16,21 @@ struct frustrumPlanes
 	glm::vec4 bottomPlane;
 	camera* _cam; 
 
+	glm::vec4 planes[6];
+
 private:
 	void setNearPlane()
 	{
 		nearPlane = glm::vec4(0, 0, -1, -_cam->getNearPlane());
+		nearPlane - glm::normalize(nearPlane);
+		planes[0] = nearPlane;
 	}
 
 	void setFarPlane()
 	{
 		farPlane = glm::vec4(0, 0, 1, _cam->getFarPlane());
+		farPlane - glm::normalize(farPlane);
+		planes[1] = farPlane;
 	}
 
 	void setLeftPlane()
@@ -33,6 +39,8 @@ private:
 		float value1 = (e / (sqrt(pow(e, 2.0f) + 1)));
 		float value3 = (1 / (sqrt(pow(e, 2.0f) + 2)));
 		leftPlane = glm::vec4(value1, 0 , -value3, 0);
+		leftPlane - glm::normalize(leftPlane);
+		planes[2] = leftPlane;
 	}
 
 	void setRightPlane()
@@ -41,6 +49,8 @@ private:
 		float value1 = (e / (sqrt(pow(e, 2.0f) + 1)));
 		float value3 = (1 / (sqrt(pow(e, 2.0f) + 2)));
 		rightPlane = glm::vec4(-value1, 0 , -value3, 0);
+		rightPlane - glm::normalize(rightPlane);
+		planes[3] = rightPlane;
 	}
 
 	void setBottomPlane()
@@ -49,6 +59,8 @@ private:
 		float value2 = (e / (sqrt(pow(e, 2.0f) + pow(_cam->getaspectRatio(), 2.0f))));
 		float value3 = (_cam->getaspectRatio() / (sqrt(pow(e, 2.0f) + pow(_cam->getaspectRatio(), 2.0f))));
 		bottomPlane = glm::vec4(0, value2, -value3, 0);
+		bottomPlane - glm::normalize(bottomPlane);
+		planes[4] = bottomPlane;
 	}
 
 	void setTopPlane()
@@ -57,6 +69,8 @@ private:
 		float value2 = (e / (sqrt(pow(e, 2.0f) + pow(_cam->getaspectRatio(), 2.0f))));
 		float value3 = (_cam->getaspectRatio() / (sqrt(pow(e, 2.0f) + pow(_cam->getaspectRatio(), 2.0f))));
 		topPlane = glm::vec4(0, -value2, -value3, 0);
+		topPlane - glm::normalize(topPlane);
+		planes[5] = topPlane;
 	}
 
 	float getE()
@@ -87,46 +101,21 @@ public:
 
 	bool checkPointValid(glm::vec3 point, glm::mat4 transformationMatrix, camera* cam)
 	{
-		//glm::vec4 _point = _cam->getView() * _cam->getProjecion() * transformationMatrix * glm::vec4(point, 1.0f);
-		setPlanes(cam);
-		glm::vec4 _point = _cam->getView() * _cam->getProjecion() * glm::vec4(point, 1.0f);
-		//_point = glm::vec4((_point.x / _point.w, _point.y / _point.w, _point.z / _point.w, _point.w / _point.w));
-
+		
+		//setPlanes(cam);
+		glm::vec4 _point = _cam->getView() * _cam->getProjecion() * transformationMatrix * glm::vec4(point, 1.0f);
+		
+		//glm::vec4 _point = _cam->getView() * _cam->getProjecion() * glm::vec4(point, 1.0f);
+		
 		//glm::vec4 _point = glm::vec4(point, 1.0f);
+		_point = _point/_point.w;
 
-		if (glm::dot(nearPlane, _point) <= 0)
+		for (int i = 0; i < 6; ++i)
 		{
-			float dot = glm::dot(nearPlane, _point);
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl; 
-			return false;
+			if (glm::dot(planes[i], _point) <= 0)
+				return false;
+			else
+				return true;			
 		}
-		if (glm::dot(farPlane, _point) <= 0)
-		{
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
-			return false;
-		}
-		if (glm::dot(leftPlane, _point) <= 0)
-		{
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl; 
-			return false;
-		}
-		if (glm::dot(rightPlane, _point) <= 0)
-		{
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
-			float rightAns = glm::dot(rightPlane, _point);
-			return false;
-		}
-		if (glm::dot(topPlane, _point) <= 0)
-		{
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
-			return false;
-		}
-		if (glm::dot(bottomPlane, _point) <= 0)
-		{
-			std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" NOT VALID"<<std::endl;
-			return false;
-		}
-		std::cout <<"Point: " << _point.x << " , "<< _point.y << " , "<< _point.z<<" IS VALID"<<std::endl;
-		return true;
 	}
 };
